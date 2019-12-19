@@ -50,6 +50,24 @@
 								</label>
 							</div>
 						</div>
+						<button class="tablinks button1" onclick="openCity(event, 'formation')"><label>Formation▼</label></button><br>
+						  <div id="formation" class="tabcontent">
+								<?php 
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=discipline_lib&refine.rentree_lib=2017-18";
+								$contents = file_get_contents($url);
+								$contents = utf8_encode($contents);
+								$results = json_decode($contents, true);
+								foreach ($results["facet_groups"][0]["facets"] as $value) {
+									echo "<label class='container'>".$value["name"];
+								  echo "<input type='checkbox' name='formation[]' value='".$value["name"]."'>";
+								 echo " <span class='checkmark'></span>";
+								echo "</label>";
+									/*echo "<option value='".$value["name"]."'>";
+									print($value["name"]);
+									echo "</option>";*/
+								}
+								 ?>
+							</div>
 						<button class="tablinks button1" onclick="openCity(event, 'a')"><label>Région▼</label></button><br>
 					  <div id="a" class="tabcontent">
 							<?php 
@@ -101,7 +119,7 @@
 								</label>
 								</div>
 						</div>
-						
+						<input type="reset" value="Reset"><br>
 						<input type="submit" value="Confirmer" class="button button1" name="go" />
 						</form>
 				</div>
@@ -125,10 +143,100 @@
 
 					<?php 
 				if(!empty($_POST["diplome"])){
-					foreach($_POST['diplome'] as $val)
-						{
+					?>
+					<table>	
+					<?php
+					foreach($_POST['diplome'] as $val){
+						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&refine.diplome_lib=".$val."&timezone=Europe/Berlin";
+						$contents = file_get_contents($url);
+						$contents = utf8_encode($contents);
+						$results = json_decode($contents, true);
+						echo "	
+								
+							  <tr>
+								    <th>Diplome</th>
+								    <th>libellé</th>
+									<th>Région</th>
+									<th>Ville</th>
+									<th>Description</th>
+							  </tr>";
+								foreach ($results as $value) {
+								if ($value["fields"]["diplome_lib"]==$val) {
+									echo "<tr>
+							    		<td>";
+									print($value["fields"]["typ_diplome_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+									print($value["fields"]["libelle_intitule_1"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+									print($value["fields"]["reg_ins_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+									print($value["fields"]["uucr_ins_lib"]);
+									echo "</td>";
+									echo "
+							    		<td><button>test</button></td></tr>";
+								}
+								}
+
 						echo $val,'<br />';
 						}
+														?>
+							</table> 
+							<?php
+				}
+				 ?>
+				 <?php 
+				if(!empty($_POST["region"])){
+					?>
+					<table>	
+					<?php
+					foreach($_POST['region'] as $val){
+						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&refine.reg_etab_lib=".$val."&timezone=Europe/Berlin";
+						$contents = file_get_contents($url);
+						$contents = utf8_encode($contents);
+						$results = json_decode($contents, true);
+						echo "	
+								
+							  <tr>
+								    <th>Diplome</th>
+								    <th>libellé</th>
+									<th>Région</th>
+									<th>Ville</th>
+									<th>Description</th>
+							  </tr>";
+								foreach ($results as $value) {
+								if ($value["fields"]["reg_etab_lib"]==$val) {
+									echo "<tr>
+							    		<td>";
+									print($value["fields"]["typ_diplome_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+									print($value["fields"]["libelle_intitule_1"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+									print($value["fields"]["reg_ins_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+									print($value["fields"]["uucr_ins_lib"]);
+									echo "</td>";
+									echo "
+							    		<td><button>test</button></td></tr>";
+								}
+								}
+
+						echo $val,'<br />';
+						}
+														?>
+							</table>
+							<?php
 				}
 				 ?>
 		<!--<script>
@@ -157,6 +265,7 @@
 					    <th>libellé</th>
 						<th>Région</th>
 						<th>Ville</th>
+						<th>Description</th>
 				  </tr>";
 					foreach ($results as $value) {
 					if ($value["fields"]["uucr_ins_lib"]==$x) {
@@ -175,7 +284,9 @@
 						echo "
 				    		<td>";
 						print($value["fields"]["uucr_ins_lib"]);
-						echo "</td></tr>";
+						echo "</td>";
+						echo "
+							    		<td><button>test</button></td></tr>";
 					}
 					}
 					?>
@@ -196,6 +307,7 @@
 					    <th>libellé</th>
 						<th>Région</th>
 						<th>Ville</th>
+						<th>Description</th>
 				  </tr>";
 					foreach ($results as $value) {
 						if ($value["fields"]["uucr_ins_lib"]==$x) {
@@ -214,7 +326,9 @@
 						echo "
 				    		<td>";
 						print($value["fields"]["uucr_ins_lib"]);
-						echo "</td></tr>";
+						echo "</td>";
+						echo "
+							    		<td><button>test</button></td></tr>";
 					}
 					}
 					?>
