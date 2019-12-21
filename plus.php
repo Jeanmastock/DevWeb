@@ -129,7 +129,7 @@
 			</script>
 
 					<?php 
-				if(!empty($_POST["diplome"])){
+				if(!empty($_POST)){
 					foreach($_POST['diplome'] as $val)
 						{
 						echo $val,'<br />';

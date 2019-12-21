@@ -27,7 +27,7 @@
 				</div>
 				<div class="tab">
 					<form method="post">
-					  <button class="tablinks button1" onclick="openCity(event, 'London')"><label>Niveaux Etude▼</label></button><br>
+						<input type="button" class="tablinks button1" onclick="openCity(event, 'London')" value="Niveaux Etude▼"><br>
 					  <div id="London" class="tabcontent">
 							<div class="nivetud">
 								<label>Niveaux Etude</label><br>
