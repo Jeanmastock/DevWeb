@@ -50,7 +50,7 @@
 								</label>
 							</div>
 						</div>
-						<button class="tablinks button1" onclick="openCity(event, 'formation')"><label>Formation▼</label></button><br>
+						<input type="button" class="tablinks button1" onclick="openCity(event, 'formation')" value="Formation▼"><br>
 						  <div id="formation" class="tabcontent">
 								<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=discipline_lib&refine.rentree_lib=2017-18";
@@ -68,7 +68,9 @@
 								}
 								 ?>
 							</div>
-						<button class="tablinks button1" onclick="openCity(event, 'a')"><label>Région▼</label></button><br>
+
+					<input type="button" class="tablinks button1" onclick="openCity(event, 'a')" value="Région▼"><br>
+						
 					  <div id="a" class="tabcontent">
 							<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=reg_etab_lib&refine.rentree_lib=2017-18";
@@ -86,7 +88,9 @@
 								}
 								 ?>
 						</div>
-						<button class="tablinks button1" onclick="openCity(event, 'b')"><label>Diplome▼</label></button><br>
+
+
+						<input type="button" class="tablinks button1" onclick="openCity(event, 'b')" value="Diplome▼"><br>
 					  <div id="b" class="tabcontent">
 							<!--<select name="diplome" id="">-->
 								  	<?php 
@@ -106,7 +110,9 @@
 								 ?>
 							<!--</select>-->
 						</div>
-					  <button class="tablinks button1" onclick="openCity(event, 'Tokyo')"><label>▼</label></button><br>
+
+
+						<input type="button" class="tablinks button1" onclick="openCity(event, 'Tokyo')" value="▼"><br>
 					  <div id="Tokyo" class="tabcontent">
 								<div class="formation">		  
 								<label class="container">BTS

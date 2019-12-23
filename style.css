@@ -3,7 +3,7 @@
   display: none;
 }
 :root{
-    --b:#FFD700	;
+    --b:#FFD700 ;
 }
 /*form*/
 form{
@@ -53,6 +53,7 @@ li a:hover {
 }
 #filtre{
   position: absolute;
+  width: 25%;
   top: 15%;
   margin-top: 3%;
   left: 3%;
@@ -131,7 +132,6 @@ body{
 }
 /*searchbar*/
 .search-container {
-  float: right;
 }
 
 input[type=text] {
@@ -142,7 +142,6 @@ input[type=text] {
 }
 
 .search-container button {
-  float: right;
   padding: 6px 10px;
   margin-top: 8px;
   background: #00BFFF;
@@ -161,7 +160,7 @@ input[type=text] {
 .container {
   display: block;
   position: relative;
-  padding-left: 35px;
+  padding-left: 20%;
   margin-bottom: 5px;
   cursor: pointer;
   font-size: 22px;
@@ -181,6 +180,7 @@ input[type=text] {
 }
 label{
   font-size: 25px;
+
 }
 /* Create a custom checkbox */
 .checkmark {
