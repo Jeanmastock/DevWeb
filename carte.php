@@ -33,59 +33,13 @@
 				</div>
 				<div class="tab">
 					<form method="post">
-					  <button class="tablinks" onclick="openCity(event, 'London')"><label>Niveaux Etude▼</label></button><br>
-					  <div id="London" class="tabcontent">
-							<div class="nivetud">
-								<label>Niveaux Etude</label><br>
-								<label class="container">Bac+2
-								  <input type="checkbox" name="bac+2">
-								  <span class="checkmark"></span>
-								</label>
-
-								<label class="container">Bac+3
-								  <input type="checkbox" name="bac+3">
-								  <span class="checkmark"></span>
-								</label>
-								<label class="container">Bac+4
-								  <input type="checkbox" name="bac+4">
-								  <span class="checkmark"></span>
-								</label>
-								<label class="container">Bac+5
-								  <input type="checkbox" name="bac+5">
-								  <span class="checkmark"></span>
-								</label>
-							</div>
-						</div>
-						<button class="tablinks" onclick="openCity(event, 'a')"><label>Niveaux Etude▼</label></button><br>
-					  <div id="a" class="tabcontent">
-							<div class="nivetud">
-								<label>Niveaux Etude</label><br>
-								<label class="container">Bac+2
-								  <input type="checkbox" name="bac+2">
-								  <span class="checkmark"></span>
-								</label>
-
-								<label class="container">Bac+3
-								  <input type="checkbox" name="bac+3">
-								  <span class="checkmark"></span>
-								</label>
-								<label class="container">Bac+4
-								  <input type="checkbox" name="bac+4">
-								  <span class="checkmark"></span>
-								</label>
-								<label class="container">Bac+5
-								  <input type="checkbox" name="bac+5">
-								  <span class="checkmark"></span>
-								</label>
-							</div>
-						</div>
-						<button class="tablinks" onclick="openCity(event, 'b')"><label>Diplome▼</label></button><br>
-					  <div id="b" class="tabcontent">
+							<input type="button" class="tablinks button1" onclick="openCity(event, 'diplome')" value="Diplome▼"><br>
+					  <div id="diplome" class="tabcontent">
 							<!--<select name="diplome" id="">-->
 								  	<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=diplome_lib&facet=diplome";
 								$contents = file_get_contents($url);
-								$contents = utf8_encode($contents);
+								//$contents = utf8_encode($contents);
 								$results = json_decode($contents, true);
 								foreach ($results["facet_groups"][0]["facets"] as $value) {
 									echo "<label class='container'>".$value["name"];
@@ -99,25 +53,111 @@
 								 ?>
 							<!--</select>-->
 						</div>
-					  <button class="tablinks" onclick="openCity(event, 'Tokyo')"><label>Diplome▼</label></button><br>
-					  <div id="Tokyo" class="tabcontent">
-								<div class="formation">		  
-								<label class="container">BTS
-									  <input type="checkbox" name="bts">
-									  <span class="checkmark"></span>
-								</label>
-								<label class="container">FAC
-									  <input type="checkbox" name="fac">
-									  <span class="checkmark"></span>
-								</label>
-								</div>
+
+						<input type="button" class="tablinks button1" onclick="openCity(event, 'formation')" value="Formation▼"><br>
+						  <div id="formation" class="tabcontent">
+								<?php 
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=discipline_lib&refine.rentree_lib=2017-18";
+								$contents = file_get_contents($url);
+								//$contents = utf8_encode($contents);
+								$results = json_decode($contents, true);
+								foreach ($results["facet_groups"][0]["facets"] as $value) {
+									echo "<label class='container'>".$value["name"];
+								  echo "<input type='checkbox' name='formation[]' value='".$value["name"]."'>";
+								 echo " <span class='checkmark'></span>";
+								echo "</label>";
+									/*echo "<option value='".$value["name"]."'>";
+									print($value["name"]);
+									echo "</option>";*/
+								}
+								 ?>
+							</div>
+
+
+						<input type="button" class="tablinks button1" onclick="openCity(event, 'cursuslib')" value="Niveaux Etude▼"><br>
+					  <div id="cursuslib" class="tabcontent">
+								<?php 
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=cursus_lmd_lib&facet=cursus_lmd_lib&refine.rentree_lib=2017-18";
+								$contents = file_get_contents($url);
+								//$contents = utf8_encode($contents);
+								$results = json_decode($contents, true);
+								foreach ($results["facet_groups"][1]["facets"] as $value) {
+									echo "<label class='container'>".$value["name"];
+								  echo "<input type='checkbox' name='cursuslib[]' value='".$value["name"]."'>";
+								 echo " <span class='checkmark'></span>";
+								echo "</label>";
+									/*echo "<option value='".$value["name"]."'>";
+									print($value["name"]);
+									echo "</option>";*/
+								}
+								 ?>
+							</div>
+
+							<input type="button" class="tablinks button1" onclick="openCity(event, 'region')" value="Région▼"><br>
+					  <div id="region" class="tabcontent">
+							<?php 
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=reg_etab_lib&refine.rentree_lib=2017-18";
+								$contents = file_get_contents($url);
+								//$contents = utf8_encode($contents);
+								$results = json_decode($contents, true);
+								foreach ($results["facet_groups"][0]["facets"] as $value) {
+									echo "<label class='container'>".$value["name"];
+								  echo "<input type='checkbox' name='region[]' value='".$value["name"]."'>";
+								 echo " <span class='checkmark'></span>";
+								echo "</label>";
+									/*echo "<option value='".$value["name"]."'>";
+									print($value["name"]);
+									echo "</option>";*/
+								}
+								 ?>
 						</div>
-						
+
+
+						<input type="button" class="tablinks button1" onclick="openCity(event, 'ville')" value="Ville▼"><br>
+					  	<div id="ville" class="tabcontent">
+								<?php 
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=uucr_ins_lib&refine.rentree_lib=2017-18";
+								$contents = file_get_contents($url);
+								//$contents = utf8_encode($contents);
+								$results = json_decode($contents, true);
+								foreach ($results["facet_groups"][0]["facets"] as $value) {
+									echo "<label class='container'>".$value["name"];
+								  echo "<input type='checkbox' name='ville[]' value='".$value["name"]."'>";
+								 echo " <span class='checkmark'></span>";
+								echo "</label>";
+									/*echo "<option value='".$value["name"]."'>";
+									print($value["name"]);
+									echo "</option>";*/
+								}
+								 ?>
+							</div>
+
+						<input type="button" class="tablinks button1" onclick="openCity(event, 'etablib')" value="Etablissement▼"><br>
+					  <div id="etablib" class="tabcontent">
+								<?php 
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=etablissement_type_lib&refine.rentree_lib=2017-18";
+								$contents = file_get_contents($url);
+								//$contents = utf8_encode($contents);
+								$results = json_decode($contents, true);
+								foreach ($results["facet_groups"][0]["facets"] as $value) {
+									echo "<label class='container'>".$value["name"];
+								  echo "<input type='checkbox' name='etablib[]' value='".$value["name"]."'>";
+								 echo " <span class='checkmark'></span>";
+								echo "</label>";
+									/*echo "<option value='".$value["name"]."'>";
+									print($value["name"]);
+									echo "</option>";*/
+								}
+								 ?>
+							</div>
+
+						<input type="reset" value="Reset"><br>
 						<input type="submit" value="Confirmer" class="button button1" name="go" />
 						</form>
 				</div>
 			</div>
 	</div>
+	<!--pagination,liste qui scroll-->
 				<script>
 			function openCity(evt, cityName) {
 			  var i, tabcontent, tablinks;
@@ -133,16 +173,105 @@
 			  evt.currentTarget.className += " active";
 			}
 			</script>
+			<?php 
+					if (isset($_POST["search"])) {
+						echo "pas encore codé";
+					}
+					//if !empty diplome 
+					if (!empty($_POST["go"])) {
+						$dip="";
+						$dis="";
+						$niv="";
+						$reg="";
+						$eta="";
+						$ucc="";
 
-					<?php 
-				if(!empty($_POST)){
-					foreach($_POST['diplome'] as $val)
-						{
-						echo $val,'<br />';
+						$url2= "coordonée.json";
+						$contents2 = file_get_contents($url2);
+						$contents2 = utf8_encode($contents2);
+						$results2 = json_decode($contents2, true);
+
+						if(!empty($_POST["diplome"])){
+							foreach($_POST['diplome'] as $val){
+								$dip=$dip."&refine.diplome_lib=".$val;
+							}
 						}
-				}
-				 ?>
-		<!--<script>
+						if(!empty($_POST["formation"])){
+							foreach($_POST['formation'] as $val){
+								$dis=$dis."&refine.discipline_lib=".$val;
+							}
+						}
+						if(!empty($_POST["cursuslib"])){
+							foreach($_POST['cursuslib'] as $val){
+								$niv=$niv."&refine.cursus_lmd_lib=".$val;
+							}
+						}
+						if(!empty($_POST["region"])){
+							foreach($_POST['region'] as $val){
+								$reg=$reg."&refine.reg_ins_lib=".$val;
+							}
+						}
+						if(!empty($_POST["ville"])){
+							foreach($_POST['ville'] as $val){
+								$ucc=$ucc."&refine.uucr_ins_lib=".$val;
+							}
+						}
+						if(!empty($_POST["etablib"])){
+							foreach($_POST['etablib'] as $val){
+								$eta=$eta."&refine.etablissement_type_lib=".$val;
+							}
+						}
+						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc."&timezone=Europe/Berlin";
+						$contents = file_get_contents($url);
+						//$contents = utf8_encode($contents);
+						$results = json_decode($contents, true);
+
+						echo "	
+								<table>
+							  <tr>
+								    <th>Diplome</th>
+								    <th>Libellé</th>
+								    <th>Formation</th>
+								    <th>Niveau étude</th>
+									<th>Région</th>
+									<th>Ville</th>
+									<th>Etablissement</th>
+									<th>Description</th>
+							  </tr>";
+								foreach ($results as $value) {
+									echo "<tr>
+							    		<td>";
+									print($value["fields"]["typ_diplome_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+									print($value["fields"]["libelle_intitule_1"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+							    	print($value["fields"]["discipline_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+							    	print($value["fields"]["cursus_lmd_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+									print($value["fields"]["reg_ins_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+							    	print($value["fields"]["uucr_ins_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+									print($value["fields"]["etablissement_type_lib"]);
+									echo "</td>";
+									echo "
+							    		<td><button>test</button></td></tr>";
+								}
+						}
+						/*<!--<script>
 		function myFunction() {
 		  var x = document.getElementById("filtre");
 		  if (x.style.display === "block") {
@@ -152,6 +281,54 @@
 		  }
 		}
 		</script>-->
+      <div class="element">
+    <?php 
+			if (isset($_POST["search"])) {
+				$x=$_POST["search"];
+				$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&refine.uucr_ins_lib=".$x."&timezone=Europe/Berlin";
+				$contents = file_get_contents($url);
+				//$contents = utf8_encode($contents);
+				$results = json_decode($contents, true);
+				echo $_POST["search"];
+				echo "	
+				<table>		
+				  <tr>
+					    <th>Diplome</th>
+					    <th>libellé</th>
+						<th>Région</th>
+						<th>Ville</th>
+						<th>Description</th>
+				  </tr>";
+					foreach ($results as $value) {
+					if ($value["fields"]["uucr_ins_lib"]==$x) {
+						echo "<tr>
+				    		<td>";
+						print($value["fields"]["typ_diplome_lib"]);
+						echo "</td>";
+						echo "
+				    		<td>";
+						print($value["fields"]["libelle_intitule_1"]);
+						echo "</td>";
+						echo "
+				    		<td>";
+						print($value["fields"]["reg_ins_lib"]);
+						echo "</td>";
+						echo "
+				    		<td>";
+						print($value["fields"]["uucr_ins_lib"]);
+						echo "</td>";
+						echo "
+							    		<td><button>test</button></td></tr>";
+					}
+					}
+					?>
+				</table>
+				<?php
+				} ?>		
+		</div>
+		*/
+						?>
+							</table> 
 <div id="mapid"></div>
 </div>
 </body>

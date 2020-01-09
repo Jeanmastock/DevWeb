@@ -33,7 +33,7 @@
 								  	<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=diplome_lib&facet=diplome";
 								$contents = file_get_contents($url);
-								$contents = utf8_encode($contents);
+								//$contents = utf8_encode($contents);
 								$results = json_decode($contents, true);
 								foreach ($results["facet_groups"][0]["facets"] as $value) {
 									echo "<label class='container'>".$value["name"];
@@ -53,7 +53,7 @@
 								<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=discipline_lib&refine.rentree_lib=2017-18";
 								$contents = file_get_contents($url);
-								$contents = utf8_encode($contents);
+								//$contents = utf8_encode($contents);
 								$results = json_decode($contents, true);
 								foreach ($results["facet_groups"][0]["facets"] as $value) {
 									echo "<label class='container'>".$value["name"];
@@ -73,11 +73,11 @@
 								<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=cursus_lmd_lib&facet=cursus_lmd_lib&refine.rentree_lib=2017-18";
 								$contents = file_get_contents($url);
-								$contents = utf8_encode($contents);
+								//$contents = utf8_encode($contents);
 								$results = json_decode($contents, true);
 								foreach ($results["facet_groups"][1]["facets"] as $value) {
 									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='formation[]' value='".$value["name"]."'>";
+								  echo "<input type='checkbox' name='cursuslib[]' value='".$value["name"]."'>";
 								 echo " <span class='checkmark'></span>";
 								echo "</label>";
 									/*echo "<option value='".$value["name"]."'>";
@@ -92,7 +92,7 @@
 							<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=reg_etab_lib&refine.rentree_lib=2017-18";
 								$contents = file_get_contents($url);
-								$contents = utf8_encode($contents);
+								//$contents = utf8_encode($contents);
 								$results = json_decode($contents, true);
 								foreach ($results["facet_groups"][0]["facets"] as $value) {
 									echo "<label class='container'>".$value["name"];
@@ -110,13 +110,13 @@
 						<input type="button" class="tablinks button1" onclick="openCity(event, 'ville')" value="Ville▼"><br>
 					  	<div id="ville" class="tabcontent">
 								<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=com_etab_lib&refine.rentree_lib=2017-18";
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=uucr_ins_lib&refine.rentree_lib=2017-18";
 								$contents = file_get_contents($url);
-								$contents = utf8_encode($contents);
+								//$contents = utf8_encode($contents);
 								$results = json_decode($contents, true);
 								foreach ($results["facet_groups"][0]["facets"] as $value) {
 									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='formation[]' value='".$value["name"]."'>";
+								  echo "<input type='checkbox' name='ville[]' value='".$value["name"]."'>";
 								 echo " <span class='checkmark'></span>";
 								echo "</label>";
 									/*echo "<option value='".$value["name"]."'>";
@@ -131,11 +131,11 @@
 								<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=etablissement_type_lib&refine.rentree_lib=2017-18";
 								$contents = file_get_contents($url);
-								$contents = utf8_encode($contents);
+								//$contents = utf8_encode($contents);
 								$results = json_decode($contents, true);
 								foreach ($results["facet_groups"][0]["facets"] as $value) {
 									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='formation[]' value='".$value["name"]."'>";
+								  echo "<input type='checkbox' name='etablib[]' value='".$value["name"]."'>";
 								 echo " <span class='checkmark'></span>";
 								echo "</label>";
 									/*echo "<option value='".$value["name"]."'>";
@@ -144,7 +144,10 @@
 								}
 								 ?>
 							</div>
-
+							<input type="button" class="tablinks button1" onclick="openCity(event, 'pagination')" value="Pagination▼"><br>
+					  <div id="pagination" class="tabcontent">
+					  pagination
+					  </div>
 						<input type="reset" value="Reset"><br>
 						<input type="submit" value="Confirmer" class="button button1" name="go" />
 						</form>
@@ -169,17 +172,53 @@
 			</script>
 
 					<?php 
-				if(!empty($_POST["diplome"])){
-					?>
-					<table>	
-					<?php
-					foreach($_POST['diplome'] as $val){
-						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&refine.diplome_lib=".$val."&timezone=Europe/Berlin";
+					if (isset($_POST["search"])) {
+						echo "pas encore codé";
+					}
+					//if !empty diplome 
+					if (!empty($_POST["go"])) {
+						$dip="";
+						$dis="";
+						$niv="";
+						$reg="";
+						$eta="";
+						$ucc="";
+						if(!empty($_POST["diplome"])){
+							foreach($_POST['diplome'] as $val){
+								$dip=$dip."&refine.diplome_lib=".$val;
+							}
+						}
+						if(!empty($_POST["formation"])){
+							foreach($_POST['formation'] as $val){
+								$dis=$dis."&refine.discipline_lib=".$val;
+							}
+						}
+						if(!empty($_POST["cursuslib"])){
+							foreach($_POST['cursuslib'] as $val){
+								$niv=$niv."&refine.cursus_lmd_lib=".$val;
+							}
+						}
+						if(!empty($_POST["region"])){
+							foreach($_POST['region'] as $val){
+								$reg=$reg."&refine.reg_ins_lib=".$val;
+							}
+						}
+						if(!empty($_POST["ville"])){
+							foreach($_POST['ville'] as $val){
+								$ucc=$ucc."&refine.uucr_ins_lib=".$val;
+							}
+						}
+						if(!empty($_POST["etablib"])){
+							foreach($_POST['etablib'] as $val){
+								$eta=$eta."&refine.etablissement_type_lib=".$val;
+							}
+						}
+						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc."&timezone=Europe/Berlin";
 						$contents = file_get_contents($url);
-						$contents = utf8_encode($contents);
+						//$contents = utf8_encode($contents);
 						$results = json_decode($contents, true);
 						echo "	
-								
+								<table>
 							  <tr>
 								    <th>Diplome</th>
 								    <th>Libellé</th>
@@ -191,7 +230,6 @@
 									<th>Description</th>
 							  </tr>";
 								foreach ($results as $value) {
-								if ($value["fields"]["diplome_lib"]==$val) {
 									echo "<tr>
 							    		<td>";
 									print($value["fields"]["typ_diplome_lib"]);
@@ -214,74 +252,17 @@
 									echo "</td>";
 									echo "
 							    		<td>";
-							    	print($value["fields"]["etablissement_type_lib"]);
+							    	print($value["fields"]["uucr_ins_lib"]);
 									echo "</td>";
 									echo "
 							    		<td>";
-									print($value["fields"]["uucr_ins_lib"]);
+									print($value["fields"]["etablissement_type_lib"]);
 									echo "</td>";
 									echo "
 							    		<td><button>test</button></td></tr>";
 								}
-								}
-
-						echo $val,'<br />';
 						}
-						?>
-							</table> 
-							<?php
-				}
-				 ?>
-				 <?php 
-				if(!empty($_POST["region"])){
-					?>
-					<table>	
-					<?php
-					foreach($_POST['region'] as $val){
-						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&refine.reg_etab_lib=".$val."&timezone=Europe/Berlin";
-						$contents = file_get_contents($url);
-						$contents = utf8_encode($contents);
-						$results = json_decode($contents, true);
-						echo "	
-								
-							  <tr>
-								    <th>Diplome</th>
-								    <th>libellé</th>
-									<th>Région</th>
-									<th>Ville</th>
-									<th>Description</th>
-							  </tr>";
-								foreach ($results as $value) {
-								if ($value["fields"]["reg_etab_lib"]==$val) {
-									echo "<tr>
-							    		<td>";
-									print($value["fields"]["typ_diplome_lib"]);
-									echo "</td>";
-									echo "
-							    		<td>";
-									print($value["fields"]["libelle_intitule_1"]);
-									echo "</td>";
-									echo "
-							    		<td>";
-									print($value["fields"]["reg_ins_lib"]);
-									echo "</td>";
-									echo "
-							    		<td>";
-									print($value["fields"]["uucr_ins_lib"]);
-									echo "</td>";
-									echo "
-							    		<td><button>test</button></td></tr>";
-								}
-								}
-
-						echo $val,'<br />';
-						}
-														?>
-							</table>
-							<?php
-				}
-				 ?>
-		<!--<script>
+						/*<!--<script>
 		function myFunction() {
 		  var x = document.getElementById("filtre");
 		  if (x.style.display === "block") {
@@ -297,7 +278,7 @@
 				$x=$_POST["search"];
 				$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&refine.uucr_ins_lib=".$x."&timezone=Europe/Berlin";
 				$contents = file_get_contents($url);
-				$contents = utf8_encode($contents);
+				//$contents = utf8_encode($contents);
 				$results = json_decode($contents, true);
 				echo $_POST["search"];
 				echo "	
@@ -336,6 +317,10 @@
 				<?php
 				} ?>		
 		</div>
+		*/
+						?>
+							</table> 
+
 </div>
 </body>
 </html>
