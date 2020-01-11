@@ -129,7 +129,7 @@
 						<input type="button" class="tablinks button1" onclick="openCity(event, 'etablib')" value="Etablissement▼"><br>
 					  <div id="etablib" class="tabcontent">
 								<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=etablissement_type_lib&refine.rentree_lib=2017-18";
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=etablissement_lib&refine.rentree_lib=2017-18";
 								$contents = file_get_contents($url);
 								//$contents = utf8_encode($contents);
 								$results = json_decode($contents, true);
@@ -183,6 +183,12 @@
 						$reg="";
 						$eta="";
 						$ucc="";
+
+						if (empty($_POST["diplome"]) && empty($_POST["formation"]) && empty($_POST["cursuslib"]) && empty($_POST["region"]) && empty($_POST["ville"]) && empty($_POST["etablib"])) {
+							echo "aucune donnée";
+							return;
+						}
+						
 						if(!empty($_POST["diplome"])){
 							foreach($_POST['diplome'] as $val){
 								$dip=$dip."&refine.diplome_lib=".$val;
@@ -210,7 +216,7 @@
 						}
 						if(!empty($_POST["etablib"])){
 							foreach($_POST['etablib'] as $val){
-								$eta=$eta."&refine.etablissement_type_lib=".$val;
+								$eta=$eta."&refine.etablissement_lib=".$val;
 							}
 						}
 						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc."&timezone=Europe/Berlin";

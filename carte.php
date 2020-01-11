@@ -135,7 +135,7 @@
 						<input type="button" class="tablinks button1" onclick="openCity(event, 'etablib')" value="Etablissement▼"><br>
 					  <div id="etablib" class="tabcontent">
 								<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=etablissement_type_lib&refine.rentree_lib=2017-18";
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=etablissement_lib&refine.rentree_lib=2017-18";
 								$contents = file_get_contents($url);
 								//$contents = utf8_encode($contents);
 								$results = json_decode($contents, true);
@@ -186,10 +186,12 @@
 						$eta="";
 						$ucc="";
 
-						$url2= "coordonée.json";
-						$contents2 = file_get_contents($url2);
-						$contents2 = utf8_encode($contents2);
-						$results2 = json_decode($contents2, true);
+						if (empty($_POST["diplome"]) && empty($_POST["formation"]) && empty($_POST["cursuslib"]) && empty($_POST["region"]) && empty($_POST["ville"]) && empty($_POST["etablib"])) {
+							echo "aucune donnée";
+							return;
+						}
+
+						
 
 						if(!empty($_POST["diplome"])){
 							foreach($_POST['diplome'] as $val){
@@ -218,7 +220,7 @@
 						}
 						if(!empty($_POST["etablib"])){
 							foreach($_POST['etablib'] as $val){
-								$eta=$eta."&refine.etablissement_type_lib=".$val;
+								$eta=$eta."&refine.etablissement_lib=".$val;
 							}
 						}
 						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc."&timezone=Europe/Berlin";
@@ -226,121 +228,64 @@
 						//$contents = utf8_encode($contents);
 						$results = json_decode($contents, true);
 
-						echo "	
-								<table>
-							  <tr>
-								    <th>Diplome</th>
-								    <th>Libellé</th>
-								    <th>Formation</th>
-								    <th>Niveau étude</th>
-									<th>Région</th>
-									<th>Ville</th>
-									<th>Etablissement</th>
-									<th>Description</th>
-							  </tr>";
-								foreach ($results as $value) {
-									echo "<tr>
-							    		<td>";
-									print($value["fields"]["typ_diplome_lib"]);
-									echo "</td>";
-									echo "
-							    		<td>";
-									print($value["fields"]["libelle_intitule_1"]);
-									echo "</td>";
-									echo "
-							    		<td>";
-							    	print($value["fields"]["discipline_lib"]);
-									echo "</td>";
-									echo "
-							    		<td>";
-							    	print($value["fields"]["cursus_lmd_lib"]);
-									echo "</td>";
-									echo "
-							    		<td>";
-									print($value["fields"]["reg_ins_lib"]);
-									echo "</td>";
-									echo "
-							    		<td>";
-							    	print($value["fields"]["uucr_ins_lib"]);
-									echo "</td>";
-									echo "
-							    		<td>";
-									print($value["fields"]["etablissement_type_lib"]);
-									echo "</td>";
-									echo "
-							    		<td><button>test</button></td></tr>";
-								}
+						$localisation1=array();
+						foreach ($results as $value) {
+							array_push($localisation1,$value["fields"]["etablissement"]);
 						}
-						/*<!--<script>
-		function myFunction() {
-		  var x = document.getElementById("filtre");
-		  if (x.style.display === "block") {
-		    x.style.display = "none";
-		  } else {
-		    x.style.display = "block";
-		  }
-		}
-		</script>-->
-      <div class="element">
-    <?php 
-			if (isset($_POST["search"])) {
-				$x=$_POST["search"];
-				$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&refine.uucr_ins_lib=".$x."&timezone=Europe/Berlin";
-				$contents = file_get_contents($url);
-				//$contents = utf8_encode($contents);
-				$results = json_decode($contents, true);
-				echo $_POST["search"];
-				echo "	
-				<table>		
-				  <tr>
-					    <th>Diplome</th>
-					    <th>libellé</th>
-						<th>Région</th>
-						<th>Ville</th>
-						<th>Description</th>
-				  </tr>";
-					foreach ($results as $value) {
-					if ($value["fields"]["uucr_ins_lib"]==$x) {
-						echo "<tr>
-				    		<td>";
-						print($value["fields"]["typ_diplome_lib"]);
-						echo "</td>";
-						echo "
-				    		<td>";
-						print($value["fields"]["libelle_intitule_1"]);
-						echo "</td>";
-						echo "
-				    		<td>";
-						print($value["fields"]["reg_ins_lib"]);
-						echo "</td>";
-						echo "
-				    		<td>";
-						print($value["fields"]["uucr_ins_lib"]);
-						echo "</td>";
-						echo "
-							    		<td><button>test</button></td></tr>";
-					}
-					}
-					?>
-				</table>
-				<?php
-				} ?>		
-		</div>
-		*/
+						echo count($localisation1);
+
+						$url2= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur";
+						$contents2 = file_get_contents($url2);
+						//$contents2 = utf8_encode($contents2);
+						$results2 = json_decode($contents2, true);
+
+
+
+						$url3= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&facet=uai&facet=type_d_etablissement&facet=com_nom&facet=dep_nom&facet=aca_nom&facet=reg_nom&facet=pays_etranger_acheminement";
+						$contents3 = file_get_contents($url3);
+						//$contents2 = utf8_encode($contents2);
+						$results3 = json_decode($contents3, true);
+
+
+						$localisation2=array();
+						for ($i=0; $i < count($localisation1); $i++) { 
+						
+							 $urlTest = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&sort=uo_lib&facet=uai&refine.uai=".$localisation1[$i];
+							//
+							 $contents4 = file_get_contents($urlTest);
+							//$contents2 = utf8_encode($contents2);
+
+							$results4 = json_decode($contents4, true);
+							foreach ($results4["records"] as $value4) {
+							array_push($localisation2,array($value4["fields"]["url"],$value4["fields"]["coordonnees"][0],$value4["fields"]["coordonnees"][1]));
+							/*echo "<br>";
+							echo $i;
+							echo "<br>";
+							print($value4["fields"]["url"]);
+							print($value4["fields"]["coordonnees"][0]);
+							echo "<br>";
+							print($value4["fields"]["coordonnees"][1]);*/
+
+							}
+						}
+						for($i = 0; $i < count($localisation2);$i++) {
+                   		 echo'L.marker(['.$localisation2[$i][1].','.$localisation2[$i][2].', {icon: custom}]).addTo(mymap).bindPopup("'."<a href='".$localisation2[$i][0]."' target='about:blank'>".$localisation2[$i][0]."</a>".'");';
+               			 }
+						}
 						?>
-							</table> 
 <div id="mapid"></div>
+
+
 </div>
+
 </body>
 <script>
-var mymap = L.map('mapid').setView([48.8391838, 2.5875129472268648], 13);
+var mymap = L.map('mapid').setView([48.8391838, 2.5875129472268648], 5);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Théo',
     maxZoom: 18,
     id: 'mapbox/streets-v11',
     accessToken: "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
 }).addTo(mymap);
-var marker = L.marker([48.8391838,  2.5875129472268648]).addTo(mymap);
-marker.bindPopup("<b>IUT</b><br>You are here").openPopup();
 	</script>
 </html>
