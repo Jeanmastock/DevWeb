@@ -266,8 +266,8 @@
 
 							$results4 = json_decode($contents4, true);
 							foreach ($results4["records"] as $value4) {
-							array_push($localisation2,array($value4["fields"]["url"],$value4["fields"]["coordonnees"][0],$value4["fields"]["coordonnees"][1],$value4["fields"]["uo_lib"]));
-
+							array_push($localisation2,array($value4["fields"]["url"],$value4["fields"]["coordonnees"][0],$value4["fields"]["coordonnees"][1]));
+							//$value4["fields"]["uo_lib"]
 							}
 						}
 						}
@@ -339,7 +339,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 			<?php
 					if (!empty($_POST["go"])) {
 						for($i = 0; $i < count($localisation2);$i++) {
-						echo'L.marker(['.$localisation2[$i][1].','.$localisation2[$i][2].']).addTo(mymap).bindPopup("'."<a href='".$localisation2[$i][0]."' target='about:blank'>".$localisation2[$i][3]."</a>".'");
+						echo'L.marker(['.$localisation2[$i][1].','.$localisation2[$i][2].']).addTo(mymap).bindPopup("'."<a href='".$localisation2[$i][0]."' target='about:blank'>".$localisation2[$i][0]."</a>".'");
 						';
                			 }
                		}
