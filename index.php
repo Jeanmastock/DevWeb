@@ -144,9 +144,20 @@
 								}
 								 ?>
 							</div>
-							<input type="button" class="tablinks button1" onclick="openCity(event, 'pagination')" value="Pagination▼"><br>
+							<input type="button" class="tablinks button1" onclick="openCity(event, 'pagination')" value="Limite▼"><br>
 					  <div id="pagination" class="tabcontent">
-					  pagination
+					  	<label class='container'>10
+								<input type='checkbox' name='pagination[]' value='10'><span class='checkmark'></span>
+						</label>
+							<label class='container'>25
+								<input type='checkbox' name='pagination[]' value='25'><span class='checkmark'></span>
+						</label>
+							<label class='container'>50
+								<input type='checkbox' name='pagination[]' value='50'><span class='checkmark'></span>
+						</label>
+							<label class='container'>100
+								<input type='checkbox' name='pagination[]' value='100'><span class='checkmark'></span>
+						</label>
 					  </div>
 						<input type="reset" value="Reset"><br>
 						<input type="submit" value="Confirmer" class="button button1" name="go" />
@@ -183,6 +194,7 @@
 						$reg="";
 						$eta="";
 						$ucc="";
+						$pag="";
 
 						if (empty($_POST["diplome"]) && empty($_POST["formation"]) && empty($_POST["cursuslib"]) && empty($_POST["region"]) && empty($_POST["ville"]) && empty($_POST["etablib"])) {
 							echo "aucune donnée";
@@ -219,12 +231,18 @@
 								$eta=$eta."&refine.etablissement_lib=".$val;
 							}
 						}
-						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc."&timezone=Europe/Berlin";
+						if(!empty($_POST["pagination"])){
+							foreach($_POST['pagination'] as $val){
+								$pag=$pag."&rows=".$val;
+							}
+						}
+						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc.$pag."&timezone=Europe/Berlin";
 						$contents = file_get_contents($url);
 						//$contents = utf8_encode($contents);
 						$results = json_decode($contents, true);
+
 						echo "	
-								<table>
+								<table id='table1'>
 							  <tr>
 								    <th>Diplome</th>
 								    <th>Libellé</th>
@@ -262,11 +280,12 @@
 									echo "</td>";
 									echo "
 							    		<td>";
-									print($value["fields"]["etablissement_type_lib"]);
+									print($value["fields"]["etablissement_lib"]);
 									echo "</td>";
 									echo "
 							    		<td><button>test</button></td></tr>";
 								}
+								echo "<table>";
 						}
 						/*<!--<script>
 		function myFunction() {
@@ -325,7 +344,7 @@
 		</div>
 		*/
 						?>
-							</table> 
+							
 
 </div>
 </body>

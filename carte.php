@@ -150,6 +150,21 @@
 								}
 								 ?>
 							</div>
+						<input type="button" class="tablinks button1" onclick="openCity(event, 'pagination')" value="Limite▼"><br>
+					  <div id="pagination" class="tabcontent">
+					  	<label class='container'>10
+								<input type='checkbox' name='pagination[]' value='10'><span class='checkmark'></span>
+						</label>
+							<label class='container'>25
+								<input type='checkbox' name='pagination[]' value='25'><span class='checkmark'></span>
+						</label>
+							<label class='container'>50
+								<input type='checkbox' name='pagination[]' value='50'><span class='checkmark'></span>
+						</label>
+							<label class='container'>100
+								<input type='checkbox' name='pagination[]' value='100'><span class='checkmark'></span>
+						</label>
+					  </div>
 
 						<input type="reset" value="Reset"><br>
 						<input type="submit" value="Confirmer" class="button button1" name="go" />
@@ -185,6 +200,7 @@
 						$reg="";
 						$eta="";
 						$ucc="";
+						$pag="";
 
 						if (empty($_POST["diplome"]) && empty($_POST["formation"]) && empty($_POST["cursuslib"]) && empty($_POST["region"]) && empty($_POST["ville"]) && empty($_POST["etablib"])) {
 							echo "aucune donnée";
@@ -223,7 +239,12 @@
 								$eta=$eta."&refine.etablissement_lib=".$val;
 							}
 						}
-						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc."&timezone=Europe/Berlin";
+						if(!empty($_POST["pagination"])){
+							foreach($_POST['pagination'] as $val){
+								$pag=$pag."&rows=".$val;
+							}
+						}
+						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc.$pag."&timezone=Europe/Berlin";
 						$contents = file_get_contents($url);
 						//$contents = utf8_encode($contents);
 						$results = json_decode($contents, true);
@@ -232,19 +253,7 @@
 						foreach ($results as $value) {
 							array_push($localisation1,$value["fields"]["etablissement"]);
 						}
-						echo count($localisation1);
 
-						$url2= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur";
-						$contents2 = file_get_contents($url2);
-						//$contents2 = utf8_encode($contents2);
-						$results2 = json_decode($contents2, true);
-
-
-
-						$url3= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&facet=uai&facet=type_d_etablissement&facet=com_nom&facet=dep_nom&facet=aca_nom&facet=reg_nom&facet=pays_etranger_acheminement";
-						$contents3 = file_get_contents($url3);
-						//$contents2 = utf8_encode($contents2);
-						$results3 = json_decode($contents3, true);
 
 
 						$localisation2=array();
@@ -257,35 +266,83 @@
 
 							$results4 = json_decode($contents4, true);
 							foreach ($results4["records"] as $value4) {
-							array_push($localisation2,array($value4["fields"]["url"],$value4["fields"]["coordonnees"][0],$value4["fields"]["coordonnees"][1]));
-							/*echo "<br>";
-							echo $i;
-							echo "<br>";
-							print($value4["fields"]["url"]);
-							print($value4["fields"]["coordonnees"][0]);
-							echo "<br>";
-							print($value4["fields"]["coordonnees"][1]);*/
+							array_push($localisation2,array($value4["fields"]["url"],$value4["fields"]["coordonnees"][0],$value4["fields"]["coordonnees"][1],$value4["fields"]["uo_lib"]));
 
 							}
 						}
-						for($i = 0; $i < count($localisation2);$i++) {
-                   		 echo'L.marker(['.$localisation2[$i][1].','.$localisation2[$i][2].', {icon: custom}]).addTo(mymap).bindPopup("'."<a href='".$localisation2[$i][0]."' target='about:blank'>".$localisation2[$i][0]."</a>".'");';
-               			 }
 						}
+						
 						?>
-<div id="mapid"></div>
-
-
+<div id='mapid'></div>
 </div>
-
+<div>
+	<?php 
+					if (!empty($_POST["go"])) {
+							echo "	
+								<table>
+							  <tr>
+								    <th>Diplome</th>
+								    <th>Libellé</th>
+								    <th>Formation</th>
+								    <th>Niveau étude</th>
+									<th>Région</th>
+									<th>Ville</th>
+									<th>Etablissement</th>
+									<th>Description</th>
+							  </tr>";
+								foreach ($results as $value) {
+									echo "<tr>
+							    		<td>";
+									print($value["fields"]["typ_diplome_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+									print($value["fields"]["libelle_intitule_1"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+							    	print($value["fields"]["discipline_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+							    	print($value["fields"]["cursus_lmd_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+									print($value["fields"]["reg_ins_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+							    	print($value["fields"]["uucr_ins_lib"]);
+									echo "</td>";
+									echo "
+							    		<td>";
+									print($value["fields"]["etablissement_lib"]);
+									echo "</td>";
+									echo "
+							    		<td><button>test</button></td>
+							    		</tr>";
+								}
+								echo"</table>";
+								}
+								?>
+</div>
 </body>
 <script>
-var mymap = L.map('mapid').setView([48.8391838, 2.5875129472268648], 5);
+var mymap = L.map('mapid').setView([48.8391838, 2.5875129472268648], 5)
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Théo',
-    maxZoom: 18,
-    id: 'mapbox/streets-v11',
-    accessToken: "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
-}).addTo(mymap);
-	</script>
+		    attribution: 'Théo',
+		    maxZoom: 18,
+		    id: 'mapbox/streets-v11',
+		    accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+		}).addTo(mymap);
+			<?php
+					if (!empty($_POST["go"])) {
+						for($i = 0; $i < count($localisation2);$i++) {
+						echo'L.marker(['.$localisation2[$i][1].','.$localisation2[$i][2].']).addTo(mymap).bindPopup("'."<a href='".$localisation2[$i][0]."' target='about:blank'>".$localisation2[$i][3]."</a>".'");
+						';
+               			 }
+               		}
+    		?>
+</script>
 </html>
