@@ -57,6 +57,19 @@ include("API/API.php");
 							</div>
 
 
+						<input type="button" class="tablinks button1" onclick="openCity(event, 'secteur')" value="Secteur▼"><br>
+						  <div id="secteur" class="tabcontent">
+								<?php 
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=sect_disciplinaire_lib&refine.rentree_lib=2017-18";
+								$id="0";
+								$name="secteur";
+								
+								facet($url,$id,$name);
+								
+								 ?>
+							</div>
+
+
 						<input type="button" class="tablinks button1" onclick="openCity(event, 'cursuslib')" value="Niveaux Etude▼"><br>
 					  <div id="cursuslib" class="tabcontent">
 								<?php 
@@ -169,6 +182,11 @@ include("API/API.php");
 								$dis=$dis."&refine.discipline_lib=".$val;
 							}
 						}
+						if(!empty($_POST["secteur"])){
+							foreach($_POST['secteur'] as $val){
+								$dis=$dis."&refine.sect_disciplinaire_lib=".$val;
+							}
+						}
 						if(!empty($_POST["cursuslib"])){
 							foreach($_POST['cursuslib'] as $val){
 								$niv=$niv."&refine.cursus_lmd_lib=".$val;
@@ -239,11 +257,12 @@ include("API/API.php");
 									echo "
 							    		<td>";
 									print($value["fields"]["etablissement_lib"]);
-									echo "</td>";
-									echo "
-							    		<td><a><button class='tablinks button1'>Infos</button></a></td></tr>";
+									echo "</td>";?>
+							    		<td><a href="javascript:PopupCentrer('popup.php',300,150,'menubar=no,status=no')"><button class='tablinks button1'>Infos</button></a></td></tr>";
+							    	<?php
 								}
 								echo "<table>";
+
 						}
 						/*<!--<script>
 		function myFunction() {
@@ -302,8 +321,18 @@ include("API/API.php");
 		</div>
 		*/
 						?>
+						<script>
+						function PopupCentrer(page, largeur, hauteur, options) {
+  var top=(screen.height-hauteur)/2;
+  var left=(screen.width-largeur)/2;
+  window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+}
+</script>
 							
 
 </div>
 </body>
+<footer>
+	<a href="">Pour en savoir plus</a>
+</footer>
 </html>
