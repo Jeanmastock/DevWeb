@@ -233,7 +233,7 @@ label{
 }
 
 /*div*/
-#ville, #etablib, #cursuslib, #region, #formation, #diplome,#pagination{
+#ville, #etablib, #cursuslib, #region, #formation, #diplome,#pagination, #secteur{
   max-height: 300px;
   overflow:auto;
   padding: 2%;

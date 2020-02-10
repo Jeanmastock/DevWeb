@@ -267,7 +267,7 @@
 							$results4 = json_decode($contents4, true);
 							foreach ($results4["records"] as $value4) {
 							array_push($localisation2,array($value4["fields"]["url"],$value4["fields"]["coordonnees"][0],$value4["fields"]["coordonnees"][1]));
-							//$value4["fields"]["uo_lib"]
+							//$value4["fields"]["uo_lib"] 
 							}
 						}
 						}

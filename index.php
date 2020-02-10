@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <nav>
-	<!--pagination, css table button, php 2 entréée (aucune donnée-->
+
 <ul>
  <li style="color: var(--b)"><a href="index.php">Etud'Sup</a></li>
   <li><a href="carte.php">Carte</a></li>
@@ -15,6 +15,9 @@
 </ul>
 </nav>
 <body>
+<?php
+include("API/API.php");
+?>
 <div id="conteneur">
     <div class="element">
 			<div id="filtre">
@@ -30,40 +33,39 @@
 							<input type="button" class="tablinks button1" onclick="openCity(event, 'diplome')" value="Diplome▼"><br>
 					  <div id="diplome" class="tabcontent">
 							<!--<select name="diplome" id="">-->
-								  	<?php 
+								  	<?php
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=diplome_lib&facet=diplome";
-								$contents = file_get_contents($url);
-								//$contents = utf8_encode($contents);
-								$results = json_decode($contents, true);
-								foreach ($results["facet_groups"][0]["facets"] as $value) {
-									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='diplome[]' value='".$value["name"]."'>";
-								 echo " <span class='checkmark'></span>";
-								echo "</label>";
-									/*echo "<option value='".$value["name"]."'>";
-									print($value["name"]);
-									echo "</option>";*/
-								}
+								$id="0";
+								$name="diplome";
+								
+								facet($url,$id,$name);
 								 ?>
 							<!--</select>-->
 						</div>
 
+						
 						<input type="button" class="tablinks button1" onclick="openCity(event, 'formation')" value="Formation▼"><br>
 						  <div id="formation" class="tabcontent">
 								<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=discipline_lib&refine.rentree_lib=2017-18";
-								$contents = file_get_contents($url);
-								//$contents = utf8_encode($contents);
-								$results = json_decode($contents, true);
-								foreach ($results["facet_groups"][0]["facets"] as $value) {
-									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='formation[]' value='".$value["name"]."'>";
-								 echo " <span class='checkmark'></span>";
-								echo "</label>";
-									/*echo "<option value='".$value["name"]."'>";
-									print($value["name"]);
-									echo "</option>";*/
-								}
+								$id="0";
+								$name="formation";
+								
+								facet($url,$id,$name);
+								
+								 ?>
+							</div>
+
+
+						<input type="button" class="tablinks button1" onclick="openCity(event, 'secteur')" value="Secteur▼"><br>
+						  <div id="secteur" class="tabcontent">
+								<?php 
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=sect_disciplinaire_lib&refine.rentree_lib=2017-18";
+								$id="0";
+								$name="secteur";
+								
+								facet($url,$id,$name);
+								
 								 ?>
 							</div>
 
@@ -72,18 +74,10 @@
 					  <div id="cursuslib" class="tabcontent">
 								<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=cursus_lmd_lib&facet=cursus_lmd_lib&refine.rentree_lib=2017-18";
-								$contents = file_get_contents($url);
-								//$contents = utf8_encode($contents);
-								$results = json_decode($contents, true);
-								foreach ($results["facet_groups"][1]["facets"] as $value) {
-									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='cursuslib[]' value='".$value["name"]."'>";
-								 echo " <span class='checkmark'></span>";
-								echo "</label>";
-									/*echo "<option value='".$value["name"]."'>";
-									print($value["name"]);
-									echo "</option>";*/
-								}
+								$id="1";
+								$name="cursuslib";
+								
+								facet($url,$id,$name);
 								 ?>
 							</div>
 
@@ -91,18 +85,10 @@
 					  <div id="region" class="tabcontent">
 							<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=reg_etab_lib&refine.rentree_lib=2017-18";
-								$contents = file_get_contents($url);
-								//$contents = utf8_encode($contents);
-								$results = json_decode($contents, true);
-								foreach ($results["facet_groups"][0]["facets"] as $value) {
-									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='region[]' value='".$value["name"]."'>";
-								 echo " <span class='checkmark'></span>";
-								echo "</label>";
-									/*echo "<option value='".$value["name"]."'>";
-									print($value["name"]);
-									echo "</option>";*/
-								}
+								$id="0";
+								$name="region";
+								
+								facet($url,$id,$name);
 								 ?>
 						</div>
 
@@ -111,18 +97,10 @@
 					  	<div id="ville" class="tabcontent">
 								<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=uucr_ins_lib&refine.rentree_lib=2017-18";
-								$contents = file_get_contents($url);
-								//$contents = utf8_encode($contents);
-								$results = json_decode($contents, true);
-								foreach ($results["facet_groups"][0]["facets"] as $value) {
-									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='ville[]' value='".$value["name"]."'>";
-								 echo " <span class='checkmark'></span>";
-								echo "</label>";
-									/*echo "<option value='".$value["name"]."'>";
-									print($value["name"]);
-									echo "</option>";*/
-								}
+								$id="0";
+								$name="ville";
+								
+								facet($url,$id,$name);
 								 ?>
 							</div>
 
@@ -130,18 +108,11 @@
 					  <div id="etablib" class="tabcontent">
 								<?php 
 								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=etablissement_lib&refine.rentree_lib=2017-18";
-								$contents = file_get_contents($url);
-								//$contents = utf8_encode($contents);
-								$results = json_decode($contents, true);
-								foreach ($results["facet_groups"][0]["facets"] as $value) {
-									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='etablib[]' value='".$value["name"]."'>";
-								 echo " <span class='checkmark'></span>";
-								echo "</label>";
-									/*echo "<option value='".$value["name"]."'>";
-									print($value["name"]);
-									echo "</option>";*/
-								}
+								$id="0";
+								$name="etablib";
+								
+								facet($url,$id,$name);
+								
 								 ?>
 							</div>
 							<input type="button" class="tablinks button1" onclick="openCity(event, 'pagination')" value="Limite▼"><br>
@@ -165,6 +136,7 @@
 				</div>
 			</div>
 	</div>
+	<!--pagination,liste qui scroll-->
 				<script>
 			function openCity(evt, cityName) {
 			  var i, tabcontent, tablinks;
@@ -208,6 +180,11 @@
 						if(!empty($_POST["formation"])){
 							foreach($_POST['formation'] as $val){
 								$dis=$dis."&refine.discipline_lib=".$val;
+							}
+						}
+						if(!empty($_POST["secteur"])){
+							foreach($_POST['secteur'] as $val){
+								$dis=$dis."&refine.sect_disciplinaire_lib=".$val;
 							}
 						}
 						if(!empty($_POST["cursuslib"])){
@@ -280,11 +257,12 @@
 									echo "
 							    		<td>";
 									print($value["fields"]["etablissement_lib"]);
-									echo "</td>";
-									echo "
-							    		<td><button>test</button></td></tr>";
+									echo "</td>";?>
+							    		<td><a href="javascript:PopupCentrer('popup.php',300,150,'menubar=no,status=no')"><button class='tablinks button1'>Infos</button></a></td></tr>";
+							    	<?php
 								}
 								echo "<table>";
+
 						}
 						/*<!--<script>
 		function myFunction() {
@@ -343,8 +321,18 @@
 		</div>
 		*/
 						?>
+						<script>
+						function PopupCentrer(page, largeur, hauteur, options) {
+  var top=(screen.height-hauteur)/2;
+  var left=(screen.width-largeur)/2;
+  window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+}
+</script>
 							
 
 </div>
 </body>
+<footer>
+	<a href="">Pour en savoir plus</a>
+</footer>
 </html>
