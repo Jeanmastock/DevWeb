@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <nav>
-
+	<!--pagination, css table button, php 2 entréée (aucune donnée-->
 <ul>
  <li style="color: var(--b)"><a href="index.php">Etud'Sup</a></li>
   <li><a href="carte.php">Carte</a></li>
@@ -165,7 +165,6 @@
 				</div>
 			</div>
 	</div>
-	<!--pagination,liste qui scroll-->
 				<script>
 			function openCity(evt, cityName) {
 			  var i, tabcontent, tablinks;
