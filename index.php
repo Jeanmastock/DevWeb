@@ -162,12 +162,13 @@ include("API/API.php");
 						$dip="";
 						$dis="";
 						$niv="";
+						$form="";
 						$reg="";
 						$eta="";
 						$ucc="";
 						$pag="";
 
-						if (empty($_POST["diplome"]) && empty($_POST["formation"]) && empty($_POST["cursuslib"]) && empty($_POST["region"]) && empty($_POST["ville"]) && empty($_POST["etablib"])) {
+						if (empty($_POST["diplome"]) && empty($_POST["formation"]) && empty($_POST["secteur"]) && empty($_POST["cursuslib"]) && empty($_POST["region"]) && empty($_POST["ville"]) && empty($_POST["etablib"])) {
 							echo "aucune donnée";
 							return;
 						}
@@ -184,7 +185,7 @@ include("API/API.php");
 						}
 						if(!empty($_POST["secteur"])){
 							foreach($_POST['secteur'] as $val){
-								$dis=$dis."&refine.sect_disciplinaire_lib=".$val;
+								$form=$form."&refine.sect_disciplinaire_lib=".$val;
 							}
 						}
 						if(!empty($_POST["cursuslib"])){
@@ -212,7 +213,7 @@ include("API/API.php");
 								$pag=$pag."&rows=".$val;
 							}
 						}
-						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc.$pag."&timezone=Europe/Berlin";
+						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$form.$reg.$eta.$ucc.$pag."&timezone=Europe/Berlin";
 						$contents = file_get_contents($url);
 						//$contents = utf8_encode($contents);
 						$results = json_decode($contents, true);
@@ -258,7 +259,7 @@ include("API/API.php");
 							    		<td>";
 									print($value["fields"]["etablissement_lib"]);
 									echo "</td>";?>
-							    		<td><a href="javascript:PopupCentrer('popup.php',300,150,'menubar=no,status=no')"><button class='tablinks button1'>Infos</button></a></td></tr>";
+							    		<td><a href="javascript:PopupCentrer('popup.php',300,150,'menubar=no,status=no')"><button class='tablinks button1'>Infos</button></a></td></tr>
 							    	<?php
 								}
 								echo "<table>";
