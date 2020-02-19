@@ -158,7 +158,19 @@ include("API/API.php");
 							    		<td>";
 									print($value["fields"]["etablissement_lib"]);
 									echo "</td>";?>
-							    		<td><a href="javascript:PopupCentrer('popup.php',300,150,'menubar=no,status=no')"><button class='tablinks button1'>Infos</button></a></td></tr>
+							    		<td><?php
+							    		echo"<a href=";
+							    		echo'"javascript:PopupCentrer(300,150,';
+							    		echo"'menubar=no,status=no','popup.php?diplome=";
+							    		print($value["fields"]["etablissement_lib"]);
+							    		echo "&diplome2=";
+							    		print($value["fields"]["etablissement_lib"]);
+							    		echo"')";
+							    		echo'">';
+							    		?>
+
+
+							    		<button class='tablinks button1'>Infos</button></a></td></tr>
 							    	<?php
 								}
 								echo "<table>";
@@ -222,7 +234,7 @@ include("API/API.php");
 		*/
 						?>
 						<script>
-						function PopupCentrer(page, largeur, hauteur, options) {
+						function PopupCentrer(largeur, hauteur, options,page) {
   var top=(screen.height-hauteur)/2;
   var left=(screen.width-largeur)/2;
   window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);

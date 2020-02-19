@@ -4,6 +4,9 @@
 	<title></title>
 </head>
 <body>
-hello
+<?php
+echo $_GET["diplome"];
+echo $_GET["diplome2"];
+?>
 </body>
 </html>
