@@ -21,6 +21,9 @@
 </ul>
 </nav>
 <body>
+<?php
+include("API/API.php");
+?>
 <div id="conteneur">
     <div class="element">
 			<div id="filtre">
@@ -32,143 +35,9 @@
 					</form>
 				</div>
 				<div class="tab">
-					<form method="post">
-							<input type="button" class="tablinks button1" onclick="openCity(event, 'diplome')" value="Diplome▼"><br>
-					  <div id="diplome" class="tabcontent">
-							<!--<select name="diplome" id="">-->
-								  	<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=diplome_lib&facet=diplome";
-								$contents = file_get_contents($url);
-								//$contents = utf8_encode($contents);
-								$results = json_decode($contents, true);
-								foreach ($results["facet_groups"][0]["facets"] as $value) {
-									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='diplome[]' value='".$value["name"]."'>";
-								 echo " <span class='checkmark'></span>";
-								echo "</label>";
-									/*echo "<option value='".$value["name"]."'>";
-									print($value["name"]);
-									echo "</option>";*/
-								}
-								 ?>
-							<!--</select>-->
-						</div>
-
-						<input type="button" class="tablinks button1" onclick="openCity(event, 'formation')" value="Formation▼"><br>
-						  <div id="formation" class="tabcontent">
-								<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=discipline_lib&refine.rentree_lib=2017-18";
-								$contents = file_get_contents($url);
-								//$contents = utf8_encode($contents);
-								$results = json_decode($contents, true);
-								foreach ($results["facet_groups"][0]["facets"] as $value) {
-									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='formation[]' value='".$value["name"]."'>";
-								 echo " <span class='checkmark'></span>";
-								echo "</label>";
-									/*echo "<option value='".$value["name"]."'>";
-									print($value["name"]);
-									echo "</option>";*/
-								}
-								 ?>
-							</div>
-
-
-						<input type="button" class="tablinks button1" onclick="openCity(event, 'cursuslib')" value="Niveaux Etude▼"><br>
-					  <div id="cursuslib" class="tabcontent">
-								<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=cursus_lmd_lib&facet=cursus_lmd_lib&refine.rentree_lib=2017-18";
-								$contents = file_get_contents($url);
-								//$contents = utf8_encode($contents);
-								$results = json_decode($contents, true);
-								foreach ($results["facet_groups"][1]["facets"] as $value) {
-									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='cursuslib[]' value='".$value["name"]."'>";
-								 echo " <span class='checkmark'></span>";
-								echo "</label>";
-									/*echo "<option value='".$value["name"]."'>";
-									print($value["name"]);
-									echo "</option>";*/
-								}
-								 ?>
-							</div>
-
-							<input type="button" class="tablinks button1" onclick="openCity(event, 'region')" value="Région▼"><br>
-					  <div id="region" class="tabcontent">
-							<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=reg_etab_lib&refine.rentree_lib=2017-18";
-								$contents = file_get_contents($url);
-								//$contents = utf8_encode($contents);
-								$results = json_decode($contents, true);
-								foreach ($results["facet_groups"][0]["facets"] as $value) {
-									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='region[]' value='".$value["name"]."'>";
-								 echo " <span class='checkmark'></span>";
-								echo "</label>";
-									/*echo "<option value='".$value["name"]."'>";
-									print($value["name"]);
-									echo "</option>";*/
-								}
-								 ?>
-						</div>
-
-
-						<input type="button" class="tablinks button1" onclick="openCity(event, 'ville')" value="Ville▼"><br>
-					  	<div id="ville" class="tabcontent">
-								<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=uucr_ins_lib&refine.rentree_lib=2017-18";
-								$contents = file_get_contents($url);
-								//$contents = utf8_encode($contents);
-								$results = json_decode($contents, true);
-								foreach ($results["facet_groups"][0]["facets"] as $value) {
-									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='ville[]' value='".$value["name"]."'>";
-								 echo " <span class='checkmark'></span>";
-								echo "</label>";
-									/*echo "<option value='".$value["name"]."'>";
-									print($value["name"]);
-									echo "</option>";*/
-								}
-								 ?>
-							</div>
-
-						<input type="button" class="tablinks button1" onclick="openCity(event, 'etablib')" value="Etablissement▼"><br>
-					  <div id="etablib" class="tabcontent">
-								<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=etablissement_lib&refine.rentree_lib=2017-18";
-								$contents = file_get_contents($url);
-								//$contents = utf8_encode($contents);
-								$results = json_decode($contents, true);
-								foreach ($results["facet_groups"][0]["facets"] as $value) {
-									echo "<label class='container'>".$value["name"];
-								  echo "<input type='checkbox' name='etablib[]' value='".$value["name"]."'>";
-								 echo " <span class='checkmark'></span>";
-								echo "</label>";
-									/*echo "<option value='".$value["name"]."'>";
-									print($value["name"]);
-									echo "</option>";*/
-								}
-								 ?>
-							</div>
-						<input type="button" class="tablinks button1" onclick="openCity(event, 'pagination')" value="Limite▼"><br>
-					  <div id="pagination" class="tabcontent">
-					  	<label class='container'>10
-								<input type='checkbox' name='pagination[]' value='10'><span class='checkmark'></span>
-						</label>
-							<label class='container'>25
-								<input type='checkbox' name='pagination[]' value='25'><span class='checkmark'></span>
-						</label>
-							<label class='container'>50
-								<input type='checkbox' name='pagination[]' value='50'><span class='checkmark'></span>
-						</label>
-							<label class='container'>100
-								<input type='checkbox' name='pagination[]' value='100'><span class='checkmark'></span>
-						</label>
-					  </div>
-
-						<input type="reset" value="Reset"><br>
-						<input type="submit" value="Confirmer" class="button button1" name="go" />
-						</form>
+					<?php
+					include("API/filtre.php")
+					?>
 				</div>
 			</div>
 	</div>

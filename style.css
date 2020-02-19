@@ -242,5 +242,8 @@ label{
   border-radius: 5px;
 }
 
-
-
+#footer{
+margin-bottom: 5px;
+background-color: blue;
+display: flex;
+}
