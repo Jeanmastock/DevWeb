@@ -160,10 +160,20 @@ include("API/API.php");
 									echo "</td>";?>
 							    		<td><?php
 							    		echo"<a href=";
-							    		echo'"javascript:PopupCentrer(300,150,';
-							    		echo"'menubar=no,status=no','popup.php?diplome=";
-							    		print($value["fields"]["etablissement_lib"]);
-							    		echo "&diplome2=";
+							    		echo'"javascript:PopupCentrer(window.innerWidth-100,window.innerHeight-100,';
+							    		echo"'menubar=no,status=no','popup.php?etablissement=";
+							    		print($value["fields"]["etablissement"]);
+							    		echo "&effectif_total=";
+							    		print($value["fields"]["effectif_total"]);
+							    		echo "&element_wikidata=";
+							    		print($value["fields"]["element_wikidata"]);
+							    		echo "&typ_diplome_lib=";
+							    		print($value["fields"]["typ_diplome_lib"]);
+							    		echo "&cursus_lmd_lib=";
+							    		print($value["fields"]["cursus_lmd_lib"]);
+							    		echo "&ins_lib=";
+							    		print($value["fields"]["uucr_ins_lib"]);
+							    		echo "&etablissement_lib=";
 							    		print($value["fields"]["etablissement_lib"]);
 							    		echo"')";
 							    		echo'">';

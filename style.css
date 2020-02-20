@@ -241,7 +241,10 @@ label{
   border: solid 1px #2196F3;
   border-radius: 5px;
 }
-
+#infopopup{
+  border: solid 5px black;
+  background-color: blue;
+}
 #footer{
   display: flex;
   position:absolute;
