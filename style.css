@@ -10,12 +10,11 @@ form{
 }
 /*map*/
 #mapid {
-  height: 400px;
+  height: 500px;
   width: 50%;
-  left:20%;
   border: medium solid #6495ed;
   border-collapse: collapse;
-  margin: 5% 15% 5% 0%;
+  margin: 5% 0% 5% 0%;
 }
 /*navbar*/
 ul {
@@ -55,25 +54,10 @@ li a:hover {
   position: absolute;
   max-width: 20%;
   top: 15%;
-  margin-top: 3%;
-  left: 3%;
   background-color: silver;
   border: solid;
   border-radius: 5px;
   padding: 1% 1% 1% 1%;
-}
-.filtre{
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  position: absolute;
-  left: 7%;
-  margin-top: 5%;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
 }
 /*table*/
 #table1 {
@@ -124,7 +108,21 @@ body{
   transition-duration: 0.4s;
   cursor: pointer;
 }
-
+.button2 {
+  background-color: #00BFFF; /* blue */
+  border: none;
+  color: white;
+  padding: 5px 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  width: 70%;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
 .button1 {
   background-color: white;
   color: black;
@@ -234,19 +232,35 @@ label{
 
 /*div*/
 #ville, #etablib, #cursuslib, #region, #formation, #diplome,#pagination, #secteur{
-  max-height: 300px;
-  overflow:auto;
+  max-height: 150px;
+  overflow: auto;
   padding: 2%;
   margin: 2%;
   border: solid 1px #2196F3;
   border-radius: 5px;
+  max-width: 250px;
 }
 #infopopup{
   border: solid 5px black;
   background-color: blue;
 }
 #footer{
+  position: absolute;
   display: flex;
   position:absolute;
   bottom:0px;
+  background-color: white;
+}
+table{
+  position: absolute;
+  margin: 5% 5px 2% 5px;
+}
+#compteur{
+  position: absolute;
+  background-color: silver;
+  border: solid blue 2px;
+  border-radius: 2px;
+  padding: 5px;
+  margin:0% 0 0% 50%;
+  text-align: center;
 }

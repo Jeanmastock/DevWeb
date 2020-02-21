@@ -31,6 +31,8 @@ echo $_GET["hommes"];
 echo "<br>";
 echo $_GET["femmes"];
 echo "<br>";
+
+
 ?>
 </div>
 

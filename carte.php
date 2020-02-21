@@ -11,6 +11,9 @@
 	integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
 	crossorigin=""></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
 </head>
 <nav>
 
@@ -58,6 +61,7 @@ include("API/API.php");
 			}
 			</script>
 			<?php 
+			$compteur=0;
 					if (isset($_POST["search"])) {
 						echo "pas encore codé";
 					}
@@ -71,11 +75,6 @@ include("API/API.php");
 						$ucc="";
 						$pag="";
 
-						if (empty($_POST["diplome"]) && empty($_POST["formation"]) && empty($_POST["cursuslib"]) && empty($_POST["region"]) && empty($_POST["ville"]) && empty($_POST["etablib"])) {
-							echo "aucune donnée";
-							return;
-						}
-
 						
 
 						if(!empty($_POST["diplome"])){
@@ -86,6 +85,11 @@ include("API/API.php");
 						if(!empty($_POST["formation"])){
 							foreach($_POST['formation'] as $val){
 								$dis=$dis."&refine.discipline_lib=".$val;
+							}
+						}
+						if(!empty($_POST["secteur"])){
+							foreach($_POST['secteur'] as $val){
+								$form=$form."&refine.sect_disciplinaire_lib=".$val;
 							}
 						}
 						if(!empty($_POST["cursuslib"])){
@@ -159,7 +163,9 @@ include("API/API.php");
 									<th>Etablissement</th>
 									<th>Description</th>
 							  </tr>";
+							  
 								foreach ($results as $value) {
+									$compteur+=1;
 									echo "<tr>
 							    		<td>";
 									print($value["fields"]["typ_diplome_lib"]);
@@ -186,14 +192,65 @@ include("API/API.php");
 									echo "</td>";
 									echo "
 							    		<td>";
+							    		echo"<a href=";
+							    		echo'"javascript:PopupCentrer(window.innerWidth-100,window.innerHeight-100,';
+							    		echo"'menubar=no,status=no','popup2.php?etablissement=";
+							    		print($value["fields"]["etablissement"]);
+							    		echo "&effectif_total=";
+							    		print($value["fields"]["effectif_total"]);
+							    		echo "&element_wikidata=";
+							    		print($value["fields"]["element_wikidata"]);
+							    		echo "&typ_diplome_lib=";
+							    		print($value["fields"]["typ_diplome_lib"]);
+							    		echo "&cursus_lmd_lib=";
+							    		print($value["fields"]["cursus_lmd_lib"]);
+							    		echo "&ins_lib=";
+							    		print($value["fields"]["uucr_ins_lib"]);
+							    		echo "&etablissement_lib=";
+							    		print($value["fields"]["etablissement_lib"]);
+							    		echo "&niveau_lib=";
+							    		print($value["fields"]["niveau_lib"]);
+							    		echo"')";
+							    		echo'">';
 									print($value["fields"]["etablissement_lib"]);
-									echo "</td>";
-									echo "
-							    		<td><button>test</button></td>
-							    		</tr>";
+									echo "</a></td>";?>
+							    		<td><?php
+							    		echo"<a href=";
+							    		echo'"javascript:PopupCentrer(window.innerWidth-100,window.innerHeight-100,';
+							    		echo"'menubar=no,status=no','popup.php?etablissement=";
+							    		print($value["fields"]["etablissement"]);
+							    		echo "&effectif_total=";
+							    		print($value["fields"]["effectif_total"]);
+							    		echo "&element_wikidata=";
+							    		print($value["fields"]["element_wikidata"]);
+							    		echo "&typ_diplome_lib=";
+							    		print($value["fields"]["typ_diplome_lib"]);
+							    		echo "&cursus_lmd_lib=";
+							    		print($value["fields"]["cursus_lmd_lib"]);
+							    		echo "&ins_lib=";
+							    		print($value["fields"]["uucr_ins_lib"]);
+							    		echo "&etablissement_lib=";
+							    		print($value["fields"]["etablissement_lib"]);
+							    		echo "&niveau_lib=";
+							    		print($value["fields"]["niveau_lib"]);
+							    		echo "&hommes=";
+							    		print($value["fields"]["hommes"]);
+							    		echo "&femmes=";
+							    		print($value["fields"]["femmes"]);
+							    		echo"')";
+							    		echo'">';
+							    		?>
+
+
+							    		
+							    		<i class="material-icons">info</i></a></td></tr>
+							    	<?php
 								}
-								echo"</table>";
+								echo "<table>";
 								}
+								echo "<div id='compteur'>";
+								echo $compteur;
+								echo " Resultat Trouvés</div>";
 								?>
 </div>
 </body>
@@ -214,4 +271,18 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
                		}
     		?>
 </script>
+						<script>
+						function PopupCentrer(largeur, hauteur, options,page) {
+  var top=(screen.height-hauteur)/2;
+  var left=(screen.width-largeur)/2;
+  window.open(page,"","top="+top+",left="+left+",width="+largeur+",height="+hauteur+","+options);
+}
+</script>
+							
+
+</div>
+</body>
+<div id="footer">
+	<a href="#">Pour en savoir plus</a>
+</div>
 </html>

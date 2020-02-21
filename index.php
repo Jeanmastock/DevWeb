@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <link href="style.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 </head>
 <nav>
 
@@ -53,6 +55,7 @@ include("API/API.php");
 			</script>
 
 					<?php 
+					$compteur=0;
 					if (isset($_POST["search"])) {
 						echo "pas encore codé";
 					}
@@ -67,10 +70,7 @@ include("API/API.php");
 						$ucc="";
 						$pag="";
 
-						if (empty($_POST["diplome"]) && empty($_POST["formation"]) && empty($_POST["secteur"]) && empty($_POST["cursuslib"]) && empty($_POST["region"]) && empty($_POST["ville"]) && empty($_POST["etablib"])) {
-							echo "aucune donnée";
-							return;
-						}
+
 						
 						if(!empty($_POST["diplome"])){
 							foreach($_POST['diplome'] as $val){
@@ -129,7 +129,9 @@ include("API/API.php");
 									<th>Etablissement</th>
 									<th>Description</th>
 							  </tr>";
+							  
 								foreach ($results as $value) {
+									$compteur+=1;
 									echo "<tr>
 							    		<td>";
 									print($value["fields"]["typ_diplome_lib"]);
@@ -156,8 +158,28 @@ include("API/API.php");
 									echo "</td>";
 									echo "
 							    		<td>";
+							    		echo"<a href=";
+							    		echo'"javascript:PopupCentrer(window.innerWidth-100,window.innerHeight-100,';
+							    		echo"'menubar=no,status=no','popup2.php?etablissement=";
+							    		print($value["fields"]["etablissement"]);
+							    		echo "&effectif_total=";
+							    		print($value["fields"]["effectif_total"]);
+							    		echo "&element_wikidata=";
+							    		print($value["fields"]["element_wikidata"]);
+							    		echo "&typ_diplome_lib=";
+							    		print($value["fields"]["typ_diplome_lib"]);
+							    		echo "&cursus_lmd_lib=";
+							    		print($value["fields"]["cursus_lmd_lib"]);
+							    		echo "&ins_lib=";
+							    		print($value["fields"]["uucr_ins_lib"]);
+							    		echo "&etablissement_lib=";
+							    		print($value["fields"]["etablissement_lib"]);
+							    		echo "&niveau_lib=";
+							    		print($value["fields"]["niveau_lib"]);
+							    		echo"')";
+							    		echo'">';
 									print($value["fields"]["etablissement_lib"]);
-									echo "</td>";?>
+									echo "</a></td>";?>
 							    		<td><?php
 							    		echo"<a href=";
 							    		echo'"javascript:PopupCentrer(window.innerWidth-100,window.innerHeight-100,';
@@ -175,15 +197,23 @@ include("API/API.php");
 							    		print($value["fields"]["uucr_ins_lib"]);
 							    		echo "&etablissement_lib=";
 							    		print($value["fields"]["etablissement_lib"]);
+							    		echo "&niveau_lib=";
+							    		print($value["fields"]["niveau_lib"]);
+							    		echo "&hommes=";
+							    		print($value["fields"]["hommes"]);
+							    		echo "&femmes=";
+							    		print($value["fields"]["femmes"]);
 							    		echo"')";
 							    		echo'">';
 							    		?>
 
 
-							    		<button class='tablinks button1'>Infos</button></a></td></tr>
+							    		
+							    		<i class="material-icons">info</i></a></td></tr>
 							    	<?php
 								}
 								echo "<table>";
+
 
 						}
 						/*<!--<script>
@@ -195,53 +225,10 @@ include("API/API.php");
 		    x.style.display = "block";
 		  }
 		}
-		</script>-->
-      <div class="element">
-    <?php 
-			if (isset($_POST["search"])) {
-				$x=$_POST["search"];
-				$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&refine.uucr_ins_lib=".$x."&timezone=Europe/Berlin";
-				$contents = file_get_contents($url);
-				//$contents = utf8_encode($contents);
-				$results = json_decode($contents, true);
-				echo $_POST["search"];
-				echo "	
-				<table>		
-				  <tr>
-					    <th>Diplome</th>
-					    <th>libellé</th>
-						<th>Région</th>
-						<th>Ville</th>
-						<th>Description</th>
-				  </tr>";
-					foreach ($results as $value) {
-					if ($value["fields"]["uucr_ins_lib"]==$x) {
-						echo "<tr>
-				    		<td>";
-						print($value["fields"]["typ_diplome_lib"]);
-						echo "</td>";
-						echo "
-				    		<td>";
-						print($value["fields"]["libelle_intitule_1"]);
-						echo "</td>";
-						echo "
-				    		<td>";
-						print($value["fields"]["reg_ins_lib"]);
-						echo "</td>";
-						echo "
-				    		<td>";
-						print($value["fields"]["uucr_ins_lib"]);
-						echo "</td>";
-						echo "
-							    		<td><button>test</button></td></tr>";
-					}
-					}
-					?>
-				</table>
-				<?php
-				} ?>		
-		</div>
-		*/
+		</script>-->*/
+								echo "<div id='compteur'>";
+								echo $compteur;
+								echo " Resultat Trouvés</div>";
 						?>
 						<script>
 						function PopupCentrer(largeur, hauteur, options,page) {
