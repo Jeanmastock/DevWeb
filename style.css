@@ -246,14 +246,14 @@ label{
 }
 #footer{
   position: absolute;
-  display: flex;
-  position:absolute;
-  bottom:0px;
+  border: solid black 3px;
+  top: 500px;
+  bottom:0;
   background-color: white;
 }
 table{
   position: absolute;
-  margin: 5% 5px 2% 5px;
+  margin: 5% 5% 2% 5%;
 }
 #compteur{
   position: absolute;
@@ -261,6 +261,6 @@ table{
   border: solid blue 2px;
   border-radius: 2px;
   padding: 5px;
-  margin:0% 0 0% 50%;
+  margin:0% 0% 0% 45%;
   text-align: center;
 }

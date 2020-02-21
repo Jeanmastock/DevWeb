@@ -250,7 +250,7 @@ include("API/API.php");
 								}
 								echo "<div id='compteur'>";
 								echo $compteur;
-								echo " Resultat Trouvés</div>";
+								echo " Resultats Trouvés</div>";
 								?>
 </div>
 </body>
@@ -281,8 +281,8 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 							
 
 </div>
-</body>
 <div id="footer">
 	<a href="#">Pour en savoir plus</a>
 </div>
+</body>
 </html>

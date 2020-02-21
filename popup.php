@@ -34,6 +34,6 @@ echo "<br>";
 ?>
 </div>
 
-<input type="submit" name="Submit" value="Fermer la fenetre" onClick="window.close()">
+<input type="submit" class="button button1" name="Submit" value="Fermer la fenêtre" onClick="window.close()">
 </body>
 </html>
