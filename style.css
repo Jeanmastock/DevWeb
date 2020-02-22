@@ -240,10 +240,6 @@ label{
   border-radius: 5px;
   max-width: 250px;
 }
-#infopopup{
-  border: solid 5px black;
-  background-color: blue;
-}
 #footer{
   position: absolute;
   border: solid black 3px;
@@ -263,4 +259,13 @@ table{
   padding: 5px;
   margin:0% 0% 0% 45%;
   text-align: center;
+}
+.infos{
+  font-family: "Montserrat", sans-serif;
+    color: #edf0f1;
+    text-decoration: none;
+    background-color: #24252A;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
 }

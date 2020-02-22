@@ -7,35 +7,16 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<div id="infopopup">
+<input type="submit" class="button button1" name="Submit" value="Fermer la fenêtre" onClick="window.close()">
+<div id="infos">
 	<?php
-echo $_GET["etablissement"];
-echo "<br>";
-echo $_GET["effectif_total"];
-echo "<br>";
-echo "<a href='";
-echo $_GET["element_wikidata"];
-echo "'>Wikidata</a>";
-echo "<br>";
-echo $_GET["typ_diplome_lib"];
-echo "<br>";
-echo $_GET["cursus_lmd_lib"];
-echo "<br>";
-echo $_GET["ins_lib"];
-echo "<br>";
-echo $_GET["etablissement_lib"];
-echo "<br>";
-echo $_GET["niveau_lib"];
-echo "<br>";
-echo $_GET["hommes"];
-echo "<br>";
-echo $_GET["femmes"];
-echo "<br>";
+	include("API/API.php");
+echo searchetab($_GET["etablissement"]);
 
 
 ?>
 </div>
 
-<input type="submit" name="Submit" value="Fermer la fenetre" onClick="window.close()">
+
 </body>
 </html>
