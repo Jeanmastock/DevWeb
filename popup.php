@@ -30,7 +30,7 @@ echo utf8_decode($_GET["niveau_lib"]);
 echo "<br>";
 ?>
 </div>
-
+<input type="submit" class="button button1" name="Submit" value="Fermer la fenêtre" onClick="window.close()">
 
 </body>
 </html>
