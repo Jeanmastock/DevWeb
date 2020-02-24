@@ -16,6 +16,9 @@
      <link rel="icon" type="image/png" href="favicon.png">
 
 </head>
+<?php
+session_start();
+?>
 <nav>
 <ul>
  <li style="color: var(--b)"><a href="index.php">Etud'Sup</a></li>
@@ -26,15 +29,57 @@
 <h1 id="haut">Etud-Sup</h1>
 <?php
 include("API/API.php");
-echo compteur();
-$data = array();
-$data["name"]  = "olivier";
-$data["date"]  = time();
-$data["admin"] = true;
-echo json_encode( $data );
+
+$c=0; 
+$jsonString = file_get_contents('compteur.json');
+$data = json_decode($jsonString, true);
+foreach ($data as $key => $entry) {
+    if ($entry['name'] == "sas") {
+        $data[$key]['compteur']++;
+        $c=1;
+        break;
+    }
+}
+if ($c==0) {
+	$data= array_push($data, array("zebi"));
+}
+$newJsonString = json_encode($data);
+file_put_contents('compteur.json', $newJsonString);
+/*$hits =0;
+if(empty($hits)){
+	$c=0; 
+	$url= "compteur.json";
+	$contents = file_get_contents($url);
+	$results = json_decode($contents, true);
+	foreach ($results as $value) {
+		if ($value["name"]=="ZUUEE") {
+			$data = array();
+			$data["name"]  = "ZUUEE";
+			$_SESSION["number"]=$value["compteur"]+1;
+			echo $value["compteur"];
+			$c=1;
+			break;
+		}
+	}
+	//file_put_contents('compteur.json', json_encode($results));
+	if ($c==0) {
+		$num=1;
+		$data = array();
+		$data["name"]  = "ZUUEE";
+		$data["compteur"]  = $hits+1;
+		$fp=fopen("compteur.json","w+");
+		fputs($fp,json_encode( $data )); 
+		fclose($fp);
+	}
+	
+	}
+	else echo "no";*/
+
+/*
+
 $monfichier = fopen('compteur.txt', 'a+');
 fputs($monfichier, json_encode( $data ));
-fclose($monfichier);
+fclose($monfichier);*/
 ?>
 <div id="conteneur">
     <div class="element">

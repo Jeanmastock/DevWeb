@@ -13,6 +13,11 @@
 
 <?php
 $name=$_GET["etablissement"];
+$filename = "Compteur/".$name.".txt";
+$compteur = file_exists($filename) ? file_get_contents($filename) + 1 : 1;
+file_put_contents($filename, $compteur, LOCK_EX);
+echo $compteur;
+
 $url="https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&refine.etablissement=".$name."&timezone=Europe/Berlin";
 $key="&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 $contents = file_get_contents($url.$key);
@@ -21,7 +26,6 @@ $results = json_decode($contents, true);
 $urlTest = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&sort=uo_lib&facet=uai&refine.uai=".$name;
  $contents4 = file_get_contents($urlTest);
 $results4 = json_decode($contents4, true);
-
 
 foreach ($results4["records"] as $value4) {
 	echo"<div id='infoso'><h1 id='titre_info'>".$value4["fields"]["uo_lib"]."</h1>";
