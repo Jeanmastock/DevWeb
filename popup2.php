@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Etud'sup</title>
+	<title>Etablissement</title>
     <meta charset="UTF-8">
     <link href="style.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
+<h1 id="haut">Etud-Sup</h1>
 <input type="submit" class="button button1" name="Submit" value="Fermer la fenêtre" onClick="window.close()">
 
 <?php
@@ -22,25 +24,24 @@ $results4 = json_decode($contents4, true);
 
 
 foreach ($results4["records"] as $value4) {
-	echo"<div id='infos'><h3 id='titre_info'>".$value4["fields"]["uo_lib"]."</h3>";
+	echo"<div id='infoso'><h1 id='titre_info'>".$value4["fields"]["uo_lib"]."</h1>";
 		echo"<h3>Informations sur l'établissement</h3>
 		<b>Site web : </b><a href='".$value4["fields"]["url"]."'>Lien</a>
 		<b>Wikidata : </b><a href='".$value4["fields"]["element_wikidata"]."'>Lien</a>
 		<li><b>Adresse : </b>".$value4["fields"]["adresse_uai"]."</li>
+		<li><b>Academie : </b>".$value4["fields"]["com_nom"]."</li>
+		<li><b>Numéro : </b>".$value4["fields"]["numero_telephone_uai"]."</li>
 		</div>";
 		//,$value4["fields"]["coordonnees"][0],$value4["fields"]["coordonnees"][1]
 
 		}
-echo"
-</div>
-";
 
 foreach ($results as $value) {
 	echo "<div id='infos'>
 	<p id='pinfo'><h3>Informations générales</h3>
-	<li><b>Academie : </b>".$value["fields"]["etablissement_lib"]."</li>
-	<li><b>Type de diplome : </b>".$value["fields"]["etablissement_lib"]."</li>
-	<li><b>Secteur : </b>".$value["fields"]["etablissement_lib"]."</li></p><br>
+	<li><b>Nom diplome : </b>".$value["fields"]["libelle_intitule_1"]."</li>
+	<li><b>Type de diplome : </b>".$value["fields"]["typ_diplome_lib"]."</li>
+	<li><b>Secteur : </b>".$value["fields"]["sect_disciplinaire_lib"]."</li></p><br>
 	<hr>
 	<p id='pinfo'><h3>Informations sur les étudiants</h3><li><b>Nombre d'étudiants inscrits l'année derniere : </b>".$value["fields"]["effectif_total"]."</li>
 	<li><b>Nombres d'Hommes et de Femmes : </b>".$value["fields"]["hommes"]." hommes et ".$value["fields"]["femmes"]." femmes</li></p><br>
@@ -51,6 +52,14 @@ foreach ($results as $value) {
 ?>
 
 <input type="submit" class="button button1" name="Submit" value="Fermer la fenêtre" onClick="window.close()">
+<div><a id="cRetour" class="cInvisible" href="#haut"></a></div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  window.onscroll = function(ev) {
+    document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
+  };
+});
+</script>
 </body>
 </html>

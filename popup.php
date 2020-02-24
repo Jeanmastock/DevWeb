@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Etud'sup</title>
+	<title>Formation</title>
     <meta charset="UTF-8">
     <link href="style.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
+<h1 id="haut">Etud-Sup</h1>
 <input type="submit" class="button button1" name="Submit" value="Fermer la fenêtre" onClick="window.close()">
 <div id="infopopup">
 	<?php
@@ -31,6 +33,14 @@ echo "<br>";
 ?>
 </div>
 <input type="submit" class="button button1" name="Submit" value="Fermer la fenêtre" onClick="window.close()">
+<div><a id="cRetour" class="cInvisible" href="#haut"></a></div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  window.onscroll = function(ev) {
+    document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
+  };
+});
+</script>
 </body>
 </html>

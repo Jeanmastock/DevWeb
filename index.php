@@ -13,25 +13,35 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+     <link rel="icon" type="image/png" href="favicon.png">
 
 </head>
 <nav>
-
 <ul>
  <li style="color: var(--b)"><a href="index.php">Etud'Sup</a></li>
   <li><a href="plus.php">En Savoir Plus</a></li>
 </ul>
 </nav>
 <body>
+<h1 id="haut">Etud-Sup</h1>
 <?php
 include("API/API.php");
+echo compteur();
+$data = array();
+$data["name"]  = "olivier";
+$data["date"]  = time();
+$data["admin"] = true;
+echo json_encode( $data );
+$monfichier = fopen('compteur.txt', 'a+');
+fputs($monfichier, json_encode( $data ));
+fclose($monfichier);
 ?>
 <div id="conteneur">
     <div class="element">
 			<div id="filtre">
 			<label>Filtre</label><br>
 				<div class="search-container">
-					<form action="" method="post">
+					<form action="index.php" method="post">
 						<input type="text" placeholder="Search.." name="search">
 						<button type="submit"><i class="fa fa-search"></i></button>
 					</form>
@@ -234,7 +244,15 @@ include("API/API.php");
 								echo " Resultats Trouvés</div>";
 								?>
 </div>
-</body>
+<div><a id="cRetour" class="cInvisible" href="#haut"></a></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  window.onscroll = function(ev) {
+    document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
+  };
+});
+</script>
 <script>
 var mymap = L.map('mapid').setView([48.8391838, 2.5875129472268648], 5)
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {

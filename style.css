@@ -68,16 +68,17 @@ border-collapse: collapse;
 margin: 5% 5% 5% 35%;
 }
 tr:nth-of-type(2n+1) {
-  background-color:#D0E3FA;
+  background-color:#A0B5F7;
 }
 tr:nth-of-type(2n) {
-  background-color: #D4D4D4;
+  background-color: silver;
 }
 th {
 font-family: monospace;
+color: white;
 border: thin solid #6495ed;
 padding: 5px;
-background-color:  #A0B5F7;
+background-color: black;
 }
 td {
 font-family: sans-serif;
@@ -254,7 +255,7 @@ table{
 #compteur{
   position: absolute;
   background-color: silver;
-  border: solid blue 2px;
+  border: solid #6495ed 2px;
   border-radius: 2px;
   padding: 5px;
   margin:0% 0% 0% 45%;
@@ -262,10 +263,52 @@ table{
 }
 #infos{
   font-family: "Montserrat", sans-serif;
-    color: #edf0f1;
+    color: black;
     text-decoration: none;
-    background-color: #24252A;
+    background-color: silver;
     padding: 15px 15px 15px 15px;
     margin: 15px 15px 15px 15px;
     border-radius: 5px;
+}
+#infoso{
+  font-family: "Montserrat", sans-serif;
+    color: black;
+    text-decoration: none;
+    background-color: silver;
+    padding: 15px 15px 15px 15px;
+    margin: 15px 15px 15px 15px;
+    border: solid black 2px;
+    border-radius: 5px;
+}
+a#cRetour{
+  border-radius:3px;
+  padding:10px;
+  font-size:25px;
+  text-align:center;
+  color:#fff;
+  background:rgba(0, 0, 0, 1);
+  position:fixed;
+  right:20px;
+  opacity:1;
+  z-index:99999;
+  transition:all ease-in 0.2s;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  text-decoration: none;
+}
+a#cRetour:before{ content: "\25b2"; 
+font-size: 25px;}
+a#cRetour:hover{
+  background:rgba(0, 0, 0, 0.25);
+  transition:all ease-in 0.2s;
+}
+a#cRetour.cInvisible{
+  bottom:-35px;
+  opacity:0;
+  transition:all ease-in 0.5s;
+}
+
+a#cRetour.cVisible{
+  bottom:20px;
+  opacity:1;
 }
