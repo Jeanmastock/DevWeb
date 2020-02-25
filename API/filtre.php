@@ -1,9 +1,13 @@
 <form method="post">
-							<input type="button" class="button2 tablinks button1" onclick="openCity(event, 'diplome')" value="Diplome ▼"><br>
+							<label class='container'>Ignorer les pointeurs
+							  <input type='checkbox' name='mapindex'>
+							 <span class='checkmark'></span>
+							</label>
+					<input type="button" class="button2 tablinks button1" onclick="openCity(event, 'diplome')" value="Diplome ▼"><br>
 					  <div id="diplome" class="tabcontent">
 							<!--<select name="diplome" id="">-->
 								  	<?php
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=diplome_lib&facet=diplome";
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=diplome_lib&facet=diplome&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 								$id="0";
 								$name="diplome";
 								
@@ -16,7 +20,7 @@
 						<input type="button" class="button2 tablinks button1" onclick="openCity(event, 'formation')" value="Formation ▼"><br>
 						  <div id="formation" class="tabcontent">
 								<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=discipline_lib&refine.rentree_lib=2017-18";
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=discipline_lib&refine.rentree_lib=2017-18&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 								$id="0";
 								$name="formation";
 								
@@ -29,7 +33,7 @@
 						<input type="button" class="button2 tablinks button1" onclick="openCity(event, 'secteur')" value="Secteur ▼"><br>
 						  <div id="secteur" class="tabcontent">
 								<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=sect_disciplinaire_lib&refine.rentree_lib=2017-18";
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=sect_disciplinaire_lib&refine.rentree_lib=2017-18&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 								$id="0";
 								$name="secteur";
 								
@@ -39,12 +43,12 @@
 							</div>
 
 
-						<input type="button" class="button2 tablinks button1" onclick="openCity(event, 'cursuslib')" value="Niveau d'étude ▼"><br>
-					  <div id="cursuslib" class="tabcontent">
+						<input type="button" class="button2 tablinks button1" onclick="openCity(event, 'niveau_lib')" value="Niveau d'étude ▼"><br>
+					  <div id="niveau_lib" class="tabcontent">
 								<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=cursus_lmd_lib&facet=cursus_lmd_lib&refine.rentree_lib=2017-18";
-								$id="1";
-								$name="cursuslib";
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=niveau_lib&refine.rentree_lib=2017-18&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
+								$id="0";
+								$name="niveau_lib";
 								
 								facet($url,$id,$name);
 								 ?>
@@ -53,7 +57,7 @@
 							<input type="button" class="button2 tablinks button1" onclick="openCity(event, 'region')" value="Région ▼"><br>
 					  <div id="region" class="tabcontent">
 							<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=reg_etab_lib&refine.rentree_lib=2017-18";
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=reg_etab_lib&refine.rentree_lib=2017-18&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 								$id="0";
 								$name="region";
 								
@@ -65,7 +69,7 @@
 						<input type="button" class="button2 tablinks button1" onclick="openCity(event, 'ville')" value="Ville ▼"><br>
 					  	<div id="ville" class="tabcontent">
 								<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=uucr_ins_lib&refine.rentree_lib=2017-18";
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=uucr_ins_lib&refine.rentree_lib=2017-18&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 								$id="0";
 								$name="ville";
 								
@@ -76,7 +80,7 @@
 						<input type="button" class="button2 tablinks button1" onclick="openCity(event, 'etablib')" value="Etablissement ▼"><br>
 					  <div id="etablib" class="tabcontent">
 								<?php 
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=etablissement_lib&refine.rentree_lib=2017-18";
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&sort=-rentree_lib&facet=etablissement_lib&refine.rentree_lib=2017-18&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 								$id="0";
 								$name="etablib";
 								

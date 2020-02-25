@@ -88,11 +88,6 @@ text-align: center;
 }
 
 
-body{
-    text-align: center;
-    background-image: url("img.jpg");
-    background-size: cover;
-}
 
 /*button*/
 .button {

@@ -14,7 +14,13 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
      <link rel="icon" type="image/png" href="favicon.png">
-
+     <style>
+     	body{
+     		    text-align: center;
+			    background-image: url("img.jpg");
+			    background-size: cover;
+     	}
+     </style>
 </head>
 <?php
 session_start();
@@ -29,57 +35,6 @@ session_start();
 <h1 id="haut">Etud-Sup</h1>
 <?php
 include("API/API.php");
-
-$c=0; 
-$jsonString = file_get_contents('compteur.json');
-$data = json_decode($jsonString, true);
-foreach ($data as $key => $entry) {
-    if ($entry['name'] == "sas") {
-        $data[$key]['compteur']++;
-        $c=1;
-        break;
-    }
-}
-if ($c==0) {
-	$data= array_push($data, array("zebi"));
-}
-$newJsonString = json_encode($data);
-file_put_contents('compteur.json', $newJsonString);
-/*$hits =0;
-if(empty($hits)){
-	$c=0; 
-	$url= "compteur.json";
-	$contents = file_get_contents($url);
-	$results = json_decode($contents, true);
-	foreach ($results as $value) {
-		if ($value["name"]=="ZUUEE") {
-			$data = array();
-			$data["name"]  = "ZUUEE";
-			$_SESSION["number"]=$value["compteur"]+1;
-			echo $value["compteur"];
-			$c=1;
-			break;
-		}
-	}
-	//file_put_contents('compteur.json', json_encode($results));
-	if ($c==0) {
-		$num=1;
-		$data = array();
-		$data["name"]  = "ZUUEE";
-		$data["compteur"]  = $hits+1;
-		$fp=fopen("compteur.json","w+");
-		fputs($fp,json_encode( $data )); 
-		fclose($fp);
-	}
-	
-	}
-	else echo "no";*/
-
-/*
-
-$monfichier = fopen('compteur.txt', 'a+');
-fputs($monfichier, json_encode( $data ));
-fclose($monfichier);*/
 ?>
 <div id="conteneur">
     <div class="element">
@@ -117,7 +72,10 @@ fclose($monfichier);*/
 			<?php 
 			$compteur=0;
 					if (isset($_POST["search"])) {
-						echo "pas encore codé";
+						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&q=".urlencode($_POST["search"])."&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
+						$contents = file_get_contents($url);
+						//$contents = utf8_encode($contents);
+						$results = json_decode($contents, true);
 					}
 					//if !empty diplome 
 					if (!empty($_POST["go"])) {
@@ -146,9 +104,9 @@ fclose($monfichier);*/
 								$form=$form."&refine.sect_disciplinaire_lib=".$val;
 							}
 						}
-						if(!empty($_POST["cursuslib"])){
-							foreach($_POST['cursuslib'] as $val){
-								$niv=$niv."&refine.cursus_lmd_lib=".$val;
+						if(!empty($_POST["niveau_lib"])){
+							foreach($_POST['niveau_lib'] as $val){
+								$niv=$niv."&refine.niveau_lib=".$val;
 							}
 						}
 						if(!empty($_POST["region"])){
@@ -171,22 +129,15 @@ fclose($monfichier);*/
 								$pag=$pag."&rows=".$val;
 							}
 						}
-						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc.$pag."&timezone=Europe/Berlin";
+						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc.$pag."&timezone=Europe/Berlin&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 						$contents = file_get_contents($url);
 						//$contents = utf8_encode($contents);
 						$results = json_decode($contents, true);
-
-						$localisation1=array();
-						foreach ($results as $value) {
-							array_push($localisation1,$value["fields"]["etablissement"]);
-						}
-
-
-
+						if (empty($_POST["mapindex"])) {
 						$localisation2=array();
-						for ($i=0; $i < count($localisation1); $i++) { 
-						
-							 $urlTest = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&sort=uo_lib&facet=uai&refine.uai=".$localisation1[$i];
+						foreach ($results as $value) {
+
+							 $urlTest = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&sort=uo_lib&facet=uai&refine.uai=".$value["fields"]["etablissement"]."&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 							//
 							 $contents4 = file_get_contents($urlTest);
 							//$contents2 = utf8_encode($contents2);
@@ -198,13 +149,19 @@ fclose($monfichier);*/
 							}
 						}
 						}
+
+
+
+						
+						
+						}
 						
 						?>
 <div id='mapid'></div>
 </div>
 <div>
 	<?php 
-					if (!empty($_POST["go"])) {
+					if (!empty($_POST["go"])||isset($_POST["search"])) {
 							echo "	
 								<table>
 							  <tr>
@@ -234,7 +191,7 @@ fclose($monfichier);*/
 									echo "</td>";
 									echo "
 							    		<td>";
-							    	print($value["fields"]["cursus_lmd_lib"]);
+							    	print($value["fields"]["niveau_lib"]);
 									echo "</td>";
 									echo "
 							    		<td>";
@@ -307,7 +264,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 		    accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
 		}).addTo(mymap);
 			<?php
-					if (!empty($_POST["go"])) {
+					if (!empty($_POST["go"]) && empty($_POST["mapindex"])) {
 						for($i = 0; $i < count($localisation2);$i++) {
 						echo'L.marker(['.$localisation2[$i][1].','.$localisation2[$i][2].']).addTo(mymap).bindPopup("'."<a href='".$localisation2[$i][0]."' target='about:blank'>".$localisation2[$i][0]."</a>".'");
 						';
