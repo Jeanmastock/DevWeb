@@ -61,8 +61,31 @@ Séance 6 : finitions
 	
 </p>
 </div>
+suggestion maélioration
+notre dut here
 In progress<br>
+
 lien vers mon depot <a href="">git</a><br>
 <a href="index.php">home</a>
+<div id='mapid'></div>
+<script>
+
+var mymap = L.map('mapid').setView([48.8391838, 2.5875129472268648], 5)
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Théo',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+        }).addTo(mymap);
+            <?php
+                    if (!empty($_POST["go"]) && empty($_POST["mapindex"])) {
+                        for($i = 0; $i < count($localisation2);$i++) {
+                        echo'L.marker(['.$localisation2[$i][1].','.$localisation2[$i][2].']).addTo(mymap).bindPopup("'.$localisation2[$i][0].'");
+                        ';
+                        //'."<a href='".$localisation2[$i][0]."' target='about:blank'>".$localisation2[$i][0]."</a>".'
+                         }
+                    }
+            ?>
+</script>
 </body>
 </html>

@@ -226,7 +226,7 @@ include("API/API.php");
 							    		echo "&element_wikidata=";
 							    		print(url_encode($value["fields"]["element_wikidata"]));
 							    		echo "&typ_diplome_lib=";
-							    		print(url_encode($value["fields"]["typ_diplome_lib"]));
+							    		print(url_encode($value["fields"]["diplome_lib"]));
 							    		echo "&cursus_lmd_lib=";
 							    		print(url_encode($value["fields"]["cursus_lmd_lib"]));
 							    		echo "&ins_lib=";
@@ -259,11 +259,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
   };
 });
-</script>
-<script>
+
 var mymap = L.map('mapid').setView([48.8391838, 2.5875129472268648], 5)
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-		    attribution: 'Théo',
+		    attribution: 'Etud-Sup',
 		    maxZoom: 18,
 		    id: 'mapbox/streets-v11',
 		    accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'

@@ -69,7 +69,11 @@ foreach ($results as $value) {
 	<li><b>Secteur : </b>".$value["fields"]["sect_disciplinaire_lib"]."</li></p><br>
 	<hr>
 	<p id='pinfo'><h3>Informations sur les étudiants</h3><li><b>Nombre d'étudiants inscrits l'année derniere : </b>".$value["fields"]["effectif_total"]."</li>
-	<li><b>Nombres d'Hommes et de Femmes : </b>".$value["fields"]["hommes"]." hommes et ".$value["fields"]["femmes"]." femmes</li></p><br>
+	<li><b>Nombres d'Hommes et de Femmes : </b>";
+	if(!isset($value["fields"]["hommes"])){echo"Pas disponible";}else{echo $value["fields"]["hommes"];}
+		echo" hommes et ";
+	if(!isset($value["fields"]["femmes"])){echo"Pas disponible";}else{echo $value["fields"]["femmes"];}
+		echo" femmes</li></p><br>
 	<hr>";
 	
 	echo'</div>';
