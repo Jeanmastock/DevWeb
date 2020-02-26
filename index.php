@@ -22,9 +22,6 @@
      	}
      </style>
 </head>
-<?php
-session_start();
-?>
 <nav>
 <ul>
  <li style="color: var(--b)"><a href="index.php">Etud'Sup</a></li>
@@ -71,6 +68,14 @@ include("API/API.php");
 			</script>
 			<?php 
 			$compteur=0;
+					if (empty($_POST["go"])) {
+						/*$url= "compteur/forma.json";
+						$contents = file_get_contents($url);
+						//$contents = utf8_encode($contents);
+						$results = json_decode($contents, true);*/
+						echo "TOP 3 formation";
+
+					}
 					if (isset($_POST["search"])) {
 						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&q=".urlencode($_POST["search"])."&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 						$contents = file_get_contents($url);
@@ -144,7 +149,7 @@ include("API/API.php");
 
 							$results4 = json_decode($contents4, true);
 							foreach ($results4["records"] as $value4) {
-							array_push($localisation2,array($value4["fields"]["url"],$value4["fields"]["coordonnees"][0],$value4["fields"]["coordonnees"][1]));
+							array_push($localisation2,array($value4["fields"]["uo_lib"],$value4["fields"]["coordonnees"][0],$value4["fields"]["coordonnees"][1]));
 							//$value4["fields"]["uo_lib"] 
 							}
 						}
@@ -266,13 +271,12 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 			<?php
 					if (!empty($_POST["go"]) && empty($_POST["mapindex"])) {
 						for($i = 0; $i < count($localisation2);$i++) {
-						echo'L.marker(['.$localisation2[$i][1].','.$localisation2[$i][2].']).addTo(mymap).bindPopup("'."<a href='".$localisation2[$i][0]."' target='about:blank'>".$localisation2[$i][0]."</a>".'");
+						echo'L.marker(['.$localisation2[$i][1].','.$localisation2[$i][2].']).addTo(mymap).bindPopup("'.$localisation2[$i][0].'");
 						';
+						//'."<a href='".$localisation2[$i][0]."' target='about:blank'>".$localisation2[$i][0]."</a>".'
                			 }
                		}
     		?>
-</script>
-						<script>
 						function PopupCentrer(largeur, hauteur, options,page) {
   var top=(screen.height-hauteur)/2;
   var left=(screen.width-largeur)/2;

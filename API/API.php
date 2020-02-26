@@ -4,12 +4,21 @@
 		$contents = file_get_contents($url.$key);
 		//$contents = utf8_encode($contents);
 		$results = json_decode($contents, true);
+		$array=array();
+		
 		foreach ($results["facet_groups"][$id]["facets"] as $value) {
-			echo "<label class='container'>".$value["name"];
-		  echo "<input type='checkbox' name='".$name."[]' value='".$value["name"]."'>";
-		 echo " <span class='checkmark'></span>";
-		echo "</label>";
+			array_push($array, $value["name"]);
 		}
+		$newarray = new ArrayObject($array);
+		$newarray->asort();
+
+		foreach ($newarray as $key => $val) {
+			echo "<label class='container'>".$val;
+			echo "<input type='checkbox' name='".$val."[]' value='".$val."'>";
+			echo " <span class='checkmark'></span>";
+			echo "</label>";
+		} 
+		
 	}
 	function url_encode($string){
         return urlencode(utf8_encode($string));

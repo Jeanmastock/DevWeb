@@ -227,7 +227,7 @@ label{
 }
 
 /*div*/
-#ville, #etablib, #cursuslib, #region, #formation, #diplome,#pagination, #secteur{
+#ville, #etablib, #cursuslib, #region, #formation, #diplome,#pagination, #secteur, #niveau_lib{
   max-height: 150px;
   overflow: auto;
   padding: 2%;
@@ -237,9 +237,9 @@ label{
   max-width: 250px;
 }
 #footer{
-  position: absolute;
+  position: fixed;
   border: solid black 3px;
-  top: 500px;
+  padding: 5px 5px 5px 5px;
   bottom:0;
   background-color: white;
 }
