@@ -21,7 +21,7 @@
 <?php
 $name=$_GET["etablissement"];
 $c=0; 
-$jsonString = file_get_contents('compteur/etab.json');
+$jsonString = file_get_contents('Compteur/etab.json');
 $data = json_decode($jsonString, true);
 foreach ($data as $key => $entry) {
     if ($entry['name'] == $name) {
@@ -36,7 +36,7 @@ if ($c==0) {
 	echo "1";
 }
 $newJsonString = json_encode($data);
-file_put_contents('compteur/etab.json', $newJsonString);
+file_put_contents('Compteur/etab.json', $newJsonString);
 
 
 $url="https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&refine.etablissement=".$name."&timezone=Europe/Berlin";

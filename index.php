@@ -68,12 +68,26 @@ include("API/API.php");
 			</script>
 			<?php 
 			$compteur=0;
-					if (empty($_POST["go"])) {
-						/*$url= "compteur/forma.json";
+					if (empty($_POST["go"])&&empty($_POST["search"])) {
+						$url= "Compteur/forma.json";
 						$contents = file_get_contents($url);
 						//$contents = utf8_encode($contents);
-						$results = json_decode($contents, true);*/
+						$results = json_decode($contents, true);
 						echo "TOP 3 formation";
+						$top3=array();
+						$fruits = array("d" => "1", "a" => "5", "b" => "1", "c" => "99");
+						arsort($fruits);
+						foreach ($fruits as $key => $val) {
+							echo "$key = $val\n";
+						}
+						/*$newarray = new ArrayObject($results);
+						$newarray->rsort();
+
+						foreach ($newarray as $key => $value) {
+							echo $newarray[$key]["compteur"];
+							echo"<br>";
+						}*/
+						
 
 					}
 					if (isset($_POST["search"])) {

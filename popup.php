@@ -29,7 +29,7 @@ $typ_diplome_lib=url_decode($_GET["typ_diplome_lib"]);
 $etablissement_lib=url_decode($_GET["etablissement_lib"]);
 $c=0; 
 //lien url encode $_GET["etablissement"]
-$jsonString = file_get_contents('compteur/forma.json');
+$jsonString = file_get_contents('Compteur/forma.json');
 $data = json_decode($jsonString, true);
 foreach ($data as $key => $entry) {
     if ($entry['name'] == $name.$effectif_total.$Wikidata.$typ_diplome_lib.$etablissement_lib) {
@@ -44,7 +44,7 @@ if ($c==0) {
 	echo "1";
 }
 $newJsonString = json_encode($data);
-file_put_contents('compteur/forma.json', $newJsonString);
+file_put_contents('Compteur/forma.json', $newJsonString);
 
 echo"<div id='infoso'><h1 id='titre_info'>".$etablissement_lib."</h1>";
         echo"<h3>Informations sur l'établissement</h3><br>
