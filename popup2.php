@@ -15,7 +15,7 @@
 	</style>
 </head>
 <body>
-<h1 id="haut">Etud-Sup</h1>
+<h1 id="haut"><span>Etud'Sup</span></h1>
 <input type="submit" class="button button1" name="Submit" value="Fermer la fenêtre" onClick="window.close()">
 
 <?php

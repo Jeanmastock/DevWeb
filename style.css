@@ -264,6 +264,7 @@ table{
     padding: 15px 15px 15px 15px;
     margin: 15px 15px 15px 15px;
     border-radius: 5px;
+    opacity: 0.85;
 }
 #infoso{
   font-family: "Montserrat", sans-serif;
@@ -306,4 +307,23 @@ a#cRetour.cInvisible{
 a#cRetour.cVisible{
   bottom:20px;
   opacity:1;
+}
+#haut{
+  font-family: "Apple Chancery", monospace;
+    position:relative;
+    text-align:center;
+}
+#haut::before{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:0;
+    width:100%;
+    background:#6495ed;
+    height:2px;
+    z-index:-1;
+}
+#haut span{
+    background:#6495ed;
+    padding:4px 8px;
 }

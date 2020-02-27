@@ -29,7 +29,7 @@
 </ul>
 </nav>
 <body>
-<h1 id="haut">Etud-Sup</h1>
+<h1 id="haut"><span>Etud'Sup</span></h1>
 <?php
 include("API/API.php");
 ?>
@@ -75,12 +75,13 @@ include("API/API.php");
 						$results = json_decode($contents, true);
 						echo "TOP 3 formation";
 						$top3=array();
-						$fruits = array("d" => "1", "a" => "5", "b" => "1", "c" => "99");
-						arsort($fruits);
-						foreach ($fruits as $key => $val) {
-							echo "$key = $val\n";
+						//arsort($results);
+						foreach ($results as $key => $val) {
+							array_push($top3, $top3[$val["name"]]=$val["compteur"]);
 						}
-						/*$newarray = new ArrayObject($results);
+						arsort($top3);
+						/*
+						$newarray = new ArrayObject($results);
 						$newarray->rsort();
 
 						foreach ($newarray as $key => $value) {
@@ -283,6 +284,8 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 		}).addTo(mymap);
 			<?php
 					if (!empty($_POST["go"]) && empty($_POST["mapindex"])) {
+						//$input = array(4, "4", "3", 4, 3, "3");
+						//$result = array_unique($input);
 						for($i = 0; $i < count($localisation2);$i++) {
 						echo'L.marker(['.$localisation2[$i][1].','.$localisation2[$i][2].']).addTo(mymap).bindPopup("'.$localisation2[$i][0].'");
 						';
