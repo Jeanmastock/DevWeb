@@ -77,9 +77,18 @@ include("API/API.php");
 						$top3=array();
 						//arsort($results);
 						foreach ($results as $key => $val) {
-							array_push($top3, $top3[$val["name"]]=$val["compteur"]);
+							array_push($top3,$val["compteur"]);
 						}
 						arsort($top3);
+						$c=0;
+						print_r($top3);
+						foreach ($top3 as $key => $val) {
+							if ($c>3) {
+								break;
+							}
+							echo $val["compteur"];
+							$c++;
+						}
 						/*
 						$newarray = new ArrayObject($results);
 						$newarray->rsort();
@@ -92,7 +101,7 @@ include("API/API.php");
 
 					}
 					if (isset($_POST["search"])) {
-						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&q=".urlencode($_POST["search"])."&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
+						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&q=".url_encode($_POST["search"])."&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 						$contents = file_get_contents($url);
 						//$contents = utf8_encode($contents);
 						$results = json_decode($contents, true);
@@ -164,8 +173,10 @@ include("API/API.php");
 
 							$results4 = json_decode($contents4, true);
 							foreach ($results4["records"] as $value4) {
-							array_push($localisation2,array($value4["fields"]["uo_lib"],$value4["fields"]["coordonnees"][0],$value4["fields"]["coordonnees"][1]));
-							//$value4["fields"]["uo_lib"] 
+								if(!in_array(array($value4["fields"]["uo_lib"],$value4["fields"]["coordonnees"][0],$value4["fields"]["coordonnees"][1]), $localisation2)) {
+									array_push($localisation2,array($value4["fields"]["uo_lib"],$value4["fields"]["coordonnees"][0],$value4["fields"]["coordonnees"][1]));
+									//$value4["fields"]["uo_lib"] 
+								}
 							}
 						}
 						}
