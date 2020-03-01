@@ -7,7 +7,7 @@
 					  <div id="diplome" class="tabcontent">
 							<!--<select name="diplome" id="">-->
 								  	<?php
-								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=diplome_lib&facet=diplome&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
+								$url= "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=diplome_lib&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 								$id="0";
 								$name="diplome";
 								

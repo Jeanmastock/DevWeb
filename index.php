@@ -38,7 +38,7 @@ include("API/API.php");
 			<label>Filtre</label><br>
 				<div class="search-container">
 					<form action="index.php" method="post">
-						<input type="text" placeholder="Search.." name="search">
+						<input type="text" placeholder="Rechercher.." name="search">
 						<button type="submit"><i class="fa fa-search"></i></button>
 					</form>
 				</div>
@@ -174,6 +174,7 @@ include("API/API.php");
 						$eta="";
 						$ucc="";
 						$pag="";
+						$form="";
 
 						
 
@@ -217,7 +218,7 @@ include("API/API.php");
 								$pag=$pag."&rows=".$val;
 							}
 						}
-						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc.$pag."&timezone=Europe/Berlin&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
+						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18".$dip.$dis.$niv.$reg.$eta.$ucc.$form.$pag."&timezone=Europe/Berlin&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 						$contents = file_get_contents($url);
 						//$contents = utf8_encode($contents);
 						$results = json_decode($contents, true);
@@ -311,7 +312,7 @@ include("API/API.php");
 							    		echo "&effectif_total=";
 							    		print(url_encode($value["fields"]["effectif_total"]));
 							    		echo "&element_wikidata=";
-							    		print(url_encode($value["fields"]["element_wikidata"]));
+							    		if(!isset($value["fields"]["element_wikidata"])){echo"pasdisponible";}else{print(url_encode($value["fields"]["element_wikidata"]));}
 							    		echo "&typ_diplome_lib=";
 							    		print(url_encode($value["fields"]["diplome_lib"]));
 							    		echo "&cursus_lmd_lib=";
@@ -334,8 +335,13 @@ include("API/API.php");
 								echo "<table>";
 								}
 								echo "<div id='compteur'>";
-								echo $compteur;
-								echo " Resultats Trouvés</div>";
+								if ($compteur == 0) {
+									echo "Aucune Données";
+								}
+								else{
+								echo $compteur." Résultats Trouvés";
+								}
+								echo "</div>";
 								?>
 </div>
 <div><a id="cRetour" class="cInvisible" href="#haut"></a></div>
