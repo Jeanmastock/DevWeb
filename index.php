@@ -24,12 +24,11 @@
 </head>
 <nav>
 <ul>
- <li style="color: var(--b)"><a href="index.php">Etud'Sup</a></li>
+ <li style="color: var(--b)" id="haut"><a href="index.php">Etud'Sup</a></li>
   <li><a href="plus.php">En Savoir Plus</a></li>
 </ul>
 </nav>
 <body>
-<h1 id="haut"><span>Etud'Sup</span></h1>
 <?php
 include("API/API.php");
 ?>
@@ -69,13 +68,94 @@ include("API/API.php");
 			<?php 
 			$compteur=0;
 					if (empty($_POST["go"])&&empty($_POST["search"])) {
-						$url= "Compteur/forma.json";
+						echo"<div id='top'>
+				      <h3>Les formations les plus vues</h3>";
+				      
+				        $max1 = 0;
+				        $max2 = 0;
+				        $max3 = 0;
+
+				        $cle1= "";
+				        $cle2= "";
+				        $cle3= "";
+
+				        $dom1= "";
+				        $dom2= "";
+				        $dom3= "";
+
+				        $form1= "";
+				        $form2= "";
+				        $form3= "";
+
+				        $annee1="";
+				        $annee2="";
+				        $annee3="";
+
+				        $url= "Compteur/forma.json";
 						$contents = file_get_contents($url);
 						//$contents = utf8_encode($contents);
 						$results = json_decode($contents, true);
-						echo "TOP 3 formation";
-						$top3=array();
-						//arsort($results);
+
+				          foreach($results as $cle => $valeur){
+				          	 if ($valeur["compteur"] > $max3){
+				          	 	$max1 = $max2;
+					            $cle1 = $cle2;
+					            $dom1 = $dom2;
+					            $form1 = $form2;
+					            $annee1 = $annee2;
+
+					            $max2 = $max3;
+					            $cle2 = $cle3;
+					            $dom2 = $dom3;
+					            $form2 = $form3;
+					            $annee2 = $annee3;
+
+					            $max3 = $valeur["compteur"];
+					             $cle3 = $results[$cle]["name"];
+					            $dom3 = $results[$cle]["ins_lib"];
+					            $form3 = $results[$cle]["typ_diplome_lib"];
+					            $annee3 =$results[$cle]["effectif_total"];
+				          	 }
+				           elseif ($valeur["compteur"] > $max2 && $valeur["compteur"] < $max3){
+				            $max1 = $max2;
+				            $cle1 = $cle2;
+				            $dom1 = $dom2;
+				            $form1 = $form2;
+				            $annee1 = $annee2;
+
+				            $max2 =$valeur["compteur"];
+				            $cle2 = $results[$cle]["name"];
+				            $dom2 = $results[$cle]["ins_lib"];
+				            $form2 = $results[$cle]["typ_diplome_lib"];
+				            $annee2 =$results[$cle]["effectif_total"];
+				          }
+
+				          elseif ($valeur["compteur"] > $max1 && $valeur["compteur"] < $max2){
+				            $max1 = $valeur["compteur"];
+				             $cle1 = $results[$cle]["name"];
+				            $dom1 = $results[$cle]["ins_lib"];
+				            $form1 = $results[$cle]["typ_diplome_lib"];
+				            $annee1 =$results[$cle]["effectif_total"];
+				          }
+				      }
+
+				      $url3 = "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=1&sort=-rentree_lib&facet=etablissement_lib&facet=typ_diplome_lib&facet=disciplines_selection&facet=dep_etab_lib&refine.rentree_lib=2017-18";
+				    echo "TOP 1";
+				    echo "<br>";
+			        top($url3,$cle3,$dom3,$form3,$annee3);
+			         echo "<br>";
+			        echo "TOP 2";
+			         echo "<br>";
+			        top($url3,$cle2,$dom2,$form2,$annee2);
+			        echo "<br>";
+			        echo "TOP 3";
+			        echo "<br>";
+			        top($url3,$cle1,$dom1,$form1,$annee1);
+			        echo "<br>";
+		    		
+		    		echo"</div>";
+		    	
+						/*//arsort($results);
 						foreach ($results as $key => $val) {
 							array_push($top3,$val["compteur"]);
 						}
@@ -89,7 +169,7 @@ include("API/API.php");
 							echo $val["compteur"];
 							$c++;
 						}
-						/*
+						
 						$newarray = new ArrayObject($results);
 						$newarray->rsort();
 

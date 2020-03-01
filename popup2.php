@@ -6,6 +6,8 @@
     <link href="style.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="icon" type="image/png" href="favicon.png">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 	<style>
 		body{
 			background-color: #A0B5F7;
@@ -15,9 +17,8 @@
 	</style>
 </head>
 <body>
-<h1 id="haut"><span>Etud'Sup</span></h1>
-<input type="submit" class="button button1" name="Submit" value="Fermer la fenêtre" onClick="window.close()">
-
+<input type="submit" class="button button1" id="haut" name="Submit" value="Fermer la fenêtre" onClick="window.close()">
+<div id="vue">
 <?php
 $name=$_GET["etablissement"];
 $c=0; 
@@ -37,7 +38,8 @@ if ($c==0) {
 }
 $newJsonString = json_encode($data);
 file_put_contents('Compteur/etab.json', $newJsonString);
-
+echo "<i class='material-icons'>remove_red_eye</i>";
+echo "</div>";
 
 $url="https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&refine.etablissement=".$name."&timezone=Europe/Berlin";
 $key="&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";

@@ -1,5 +1,5 @@
 <form method="post">
-							<label class='container'>Ignorer les marqueurs
+							<label class='container ignore'>Ignorer les marqueurs
 							  <input type='checkbox' name='mapindex'>
 							 <span class='checkmark'></span>
 							</label>

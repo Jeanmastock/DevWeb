@@ -14,7 +14,7 @@ form{
   width: 50%;
   border: medium solid #6495ed;
   border-collapse: collapse;
-  margin: 5% 0% 5% 0%;
+  margin: 6% 0% 5% 0%;
 }
 /*navbar*/
 ul {
@@ -53,7 +53,7 @@ li a:hover {
 #filtre{
   position: absolute;
   max-width: 20%;
-  top: 15%;
+  top: 9%;
   background-color: silver;
   border: solid;
   border-radius: 5px;
@@ -108,7 +108,7 @@ text-align: center;
   background-color: #00BFFF; /* blue */
   border: none;
   color: white;
-  padding: 5px 18px;
+  padding: 4px 17px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -308,22 +308,39 @@ a#cRetour.cVisible{
   bottom:20px;
   opacity:1;
 }
-#haut{
-  font-family: "Apple Chancery", monospace;
-    position:relative;
-    text-align:center;
-}
 #haut::before{
     content:"";
     position:absolute;
     top:50%;
     left:0;
     width:100%;
-    background:#6495ed;
     height:2px;
     z-index:-1;
 }
 #haut span{
     background:#6495ed;
     padding:4px 8px;
+}
+#top{
+  position: absolute;
+  left:10px;
+  top: 9%;
+  width: 100px;
+  background-color: silver;
+  border: solid;
+  border-radius: 5px;
+  padding: 1% 1% 1% 1%;
+}
+#vue{
+  position: absolute;
+  background-color: silver;
+  border: solid #6495ed 2px;
+  top: 5px;
+  right:35%;
+  border-radius: 2px;
+  padding: 5px;
+  text-align: center;
+}
+.ignore{
+  margin-top: 5px;
 }
