@@ -28,63 +28,86 @@
   <li><a href="plus.php">En Savoir Plus</a></li>
 </ul>
 </nav>
-<h1 id="haut"><span>Etud'Sup</span></h1>
+<h1 id="haut"><span>Etud'Sup<br><a href="https://github.com/Jeanmastock/Etud-sup">Mon GitHub</a></span></h1>
 <body>
 <div id="infos"><h2>Mode Utilisations</h2>
 <p>
-	Vous vous posez peut être la question de "Je suis futur bachelier ou étudiant en bac +x , à quelle formation puis-je m’inscrire l’an prochain et où ?"
-	Etud-Sup est un site web qui vous aident a trouver votre formation de vos rêves.
-	vous avez la possibilités d'actv-iver enormément de filtres allant du niveau d'etudes àa la regions.
-	Il est aussi possible d'activer un limite de resultat pour n epas avoir trop d'informations,ainsi que 
+	Vous vous posez peut-être la question de "Je suis futur bachelier ou étudiant en bac +x, à quelle formation puis-je m’inscrire l’an prochain et où ?" Etud-Sup est un site web qui vous aide à trouver votre formation en fonction de votre localisation ou encore votre futur domaine de prédilection.<br>
+	Vous avez la possibilité d'activer énormément de filtres allant du niveau d'études à la région.<br>
+	Il est aussi possible d'activer une limite de résultat pour ne pas avoir trop d'informations, ainsi que la possibilité de désactiver les marqueurs pour un recher plus rapide et optimal.
 	
 </p>
 </div>
-<div id="infos"><h2>Qu'est ce que c'est?</h2>
+<div id="infos"><h2>Qu'est-ce que c'est?</h2>
 <p>
-	Etud-Sup est un site web qui utilisent de l'open data, il ne contient Pas de framework (Bootstrap,Symfony...) Sources ouvertes (documentation, Stack Overflow, ...) Benckmark (copier-coller-modifier dans la limite de la légalité).Opérationnel Fonctionnel ErgonomieCommunicant (3 clics, clair, rapide, simple)Code propre, commentairesLiberté, réflexion, recherche, innovation, critique Conception → Réalisation
-	Ce site web a été réalisée avec Html5, css3 Mysql / phpmyadmin Cartographie, géoloc Jquery Diagrammes
-	dév. statique
-Séance 2 : dév. dynamique
-Séance 3 : gestion des données
-Séance 4 : cartographie
-Séance 5 : requêtes
-Séance 6 : finitions
+	Etud-Sup est un site web qui utilise de l'open data, il ne contient pas de framework (Bootstrap, Symfony...),il est composé de sources ouverts (documentation, Stack overflow, ...) et aussi aider par le Benckmark (copier coller modifier dans la limite de la légalité).<br>
+	Le site web est opérationnel Fonctionnel Ergonomie et Communicant en utilisant la technique des 3 clics (clair, rapide, simple).<br>
+	J'ai dû passer par plusieurs phases pour réaliser ce projet comme la Conception puis la réalisation.<br>
+	J'ai pu passer par plusieurs phases de réflexion, recherche, innovation et critique.<br>
+	Ce site web a été réalisée avec HTML5, CSS3, PHP et JAVASCRIPT, J'ai pu intégrer une cartographie.
 	
 </p>
 </div>
 <div id="infos"><h2>Sitographie</h2>
 <p>
-	Ministère:
-	Open-data:
-	W3C Validator:
+	Ministère: <a href="https://www.interieur.gouv.fr/">Lien</a><br>
+	Open-data: <a href="https://data.enseignementsup-recherche.gouv.fr/pages/home/">Lien</a><br>
+	Stack Overflow: <a href="https://stackoverflow.com/">Lien</a>
 	
 </p>
 </div>
-suggestion maélioration
-notre dut here
-In progress<br>
+<style>
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+input[type=submit] {
+  width: 100%;
+  background-color: #5289EC;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-lien vers mon depot <a href="">git</a><br>
-<a href="index.php">home</a>
-<div id='mapid'></div>
-<script>
+input[type=submit]:hover {
+  background-color: #6495ed;
+}
 
-var mymap = L.map('mapid').setView([48.8391838, 2.5875129472268648], 5)
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-            attribution: 'Théo',
-            maxZoom: 18,
-            id: 'mapbox/streets-v11',
-            accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
-        }).addTo(mymap);
-            <?php
-                    if (!empty($_POST["go"]) && empty($_POST["mapindex"])) {
-                        for($i = 0; $i < count($localisation2);$i++) {
-                        echo'L.marker(['.$localisation2[$i][1].','.$localisation2[$i][2].']).addTo(mymap).bindPopup("'.$localisation2[$i][0].'");
-                        ';
-                        //'."<a href='".$localisation2[$i][0]."' target='about:blank'>".$localisation2[$i][0]."</a>".'
-                         }
-                    }
-            ?>
-</script>
+div {
+  border-radius: 5px;
+  padding: 20px;
+}
+</style>
+
+<div>
+  <form action="plus.php">
+    <h2>Vos Suggestions</h2>
+    <input type="text" placeholder="Votre Prénom..">
+
+	<textarea placeholder="Vos suggestions.."></textarea>
+
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
 </body>
 </html>

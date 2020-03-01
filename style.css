@@ -12,7 +12,8 @@ form{
 #mapid {
   height: 500px;
   width: 50%;
-  border: medium solid #6495ed;
+  border: medium solid black;
+  border-radius: 5px;
   border-collapse: collapse;
   margin: 6% 0% 5% 0%;
 }
@@ -71,7 +72,7 @@ tr:nth-of-type(2n+1) {
   background-color:#A0B5F7;
 }
 tr:nth-of-type(2n) {
-  background-color: silver;
+  background-color: #94A7E3;
 }
 th {
 font-family: monospace;
@@ -240,12 +241,12 @@ label{
   position: fixed;
   border: solid black 3px;
   padding: 5px 5px 5px 5px;
-  bottom:0;
-  background-color: white;
+  bottom: 15px;
+  background-color: silver;
 }
 table{
   position: absolute;
-  margin: 5% 5% 2% 5%;
+  margin: 5% 5% 5% 5%;
 }
 #compteur{
   position: absolute;
@@ -334,8 +335,9 @@ a#cRetour.cVisible{
 #vue{
   position: absolute;
   background-color: silver;
+  font-size: 30px;
   border: solid #6495ed 2px;
-  top: 5px;
+  top: 18px;
   right:35%;
   border-radius: 2px;
   padding: 5px;

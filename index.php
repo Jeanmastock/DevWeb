@@ -67,6 +67,7 @@ include("API/API.php");
 			</script>
 			<?php 
 			$compteur=0;
+			// Top 3 formation
 					if (empty($_POST["go"])&&empty($_POST["search"])) {
 						echo"<div id='top'>
 				      <h3>Les formations les plus vues</h3>";
@@ -154,39 +155,17 @@ include("API/API.php");
 			        echo "<br>";
 		    		
 		    		echo"</div>";
-		    	
-						/*//arsort($results);
-						foreach ($results as $key => $val) {
-							array_push($top3,$val["compteur"]);
-						}
-						arsort($top3);
-						$c=0;
-						print_r($top3);
-						foreach ($top3 as $key => $val) {
-							if ($c>3) {
-								break;
-							}
-							echo $val["compteur"];
-							$c++;
-						}
-						
-						$newarray = new ArrayObject($results);
-						$newarray->rsort();
-
-						foreach ($newarray as $key => $value) {
-							echo $newarray[$key]["compteur"];
-							echo"<br>";
-						}*/
 						
 
 					}
+					//barre de recherche
 					if (isset($_POST["search"])) {
 						$url= "https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics/download/?format=json&refine.rentree_lib=2017-18&q=".url_encode($_POST["search"])."&apikey=4543f20d282f86b4f963285aafae2f746f9224362fa5e6318da0a247";
 						$contents = file_get_contents($url);
 						//$contents = utf8_encode($contents);
 						$results = json_decode($contents, true);
 					}
-					//if !empty diplome 
+					//recher avec filtre
 					if (!empty($_POST["go"])) {
 						$dip="";
 						$dis="";
@@ -272,6 +251,7 @@ include("API/API.php");
 </div>
 <div>
 	<?php 
+	//table resultat filtre
 					if (!empty($_POST["go"])||isset($_POST["search"])) {
 							echo "	
 								<table>
@@ -314,6 +294,7 @@ include("API/API.php");
 									echo "</td>";
 									echo "
 							    		<td>";
+							    		//pop up
 							    		echo"<a href=";
 							    		echo'"javascript:PopupCentrer(window.innerWidth-100,window.innerHeight-100,';
 							    		echo"'menubar=no,status=no','popup2.php?etablissement=";
@@ -375,12 +356,10 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 		}).addTo(mymap);
 			<?php
 					if (!empty($_POST["go"]) && empty($_POST["mapindex"])) {
-						//$input = array(4, "4", "3", 4, 3, "3");
-						//$result = array_unique($input);
+						//liste des marqueurs
 						for($i = 0; $i < count($localisation2);$i++) {
 						echo'L.marker(['.$localisation2[$i][1].','.$localisation2[$i][2].']).addTo(mymap).bindPopup("'.$localisation2[$i][0].'");
 						';
-						//'."<a href='".$localisation2[$i][0]."' target='about:blank'>".$localisation2[$i][0]."</a>".'
                			 }
                		}
     		?>
@@ -394,7 +373,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 </div>
 <div id="footer">
-	<a href="#">Pour en savoir plus</a>
+	<a href="https://github.com/Jeanmastock/Etud-sup">Pour en savoir plus</a>
 </div>
 </body>
 </html>
